@@ -1,0 +1,57 @@
+{
+  "name": "cn.widgetjs.widgets.ai.assistant",
+  "version": "0.0.1",
+  "author": "Neo Fu",
+  "homepage": "https://widgetjs.cn",
+  "title": {
+    "zh-CN": "一键呼出ChatGPT"
+  },
+  "description": {
+    "zh-CN": "ChatGPT助手"
+  },
+  "entry": "index.html",
+  "remoteEntry": "https://rtugeek.gitee.io/ai",
+  "remotePackage": "https://rtugeek.gitee.io/ai/widget.json",
+  "remote": {
+    "entry": "https://rtugeek.gitee.io/ai",
+    "hash": true,
+    "base": "/ai"
+  },
+  "hash": true,
+  "url": "",
+  "widgets": [
+    {
+      "name": "cn.widgetjs.widgets.ai.assistant.chatgpt",
+      "title": {
+        "zh-CN": "AI助手"
+      },
+      "description": {
+        "zh-CN": "AI助手"
+      },
+      "keywords": [
+        "recommend"
+      ],
+      "security": false,
+      "permissions": [],
+      "lang": "zh-CN",
+      "width": 8,
+      "height": 8,
+      "maxWidth": 12,
+      "webviewTag": true,
+      "maxHeight": 15,
+      "minWidth": 5,
+      "minHeight": 5,
+      "movable": true,
+      "singleton": false,
+      "resizable": true,
+      "path": "/widget/chatgpt",
+      "meta": {},
+      "backgroundThrottling": false,
+      "previewImage": "/chatgpt.png",
+      "supportDeployMode": 65536,
+      "configPagePath": "/widget/config/chatgpt",
+      "routes": []
+    }
+  ],
+  "pages": []
+}
