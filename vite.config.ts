@@ -5,11 +5,10 @@ import Components from 'unplugin-vue-components/vite'
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
 import path from 'path'
 import ViteWidget from '@widget-js/vite-plugin-widget'
-import legacy from '@vitejs/plugin-legacy'
 // https://vitejs.dev/config/
 
 export default defineConfig({
-    base: './',
+    base: '/ai',
     build: {
         target: "es6",
         rollupOptions: {

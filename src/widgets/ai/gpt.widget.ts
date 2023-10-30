@@ -1,6 +1,6 @@
 import {DeployMode, Widget, WidgetKeyword} from '@widget-js/core'
 
-const name = 'cn.widgetjs.widgets.ai.assistant.main'
+const name = 'cn.widgetjs.widgets.ai.assistant.chatgpt'
 //组件标题
 const title = {'zh-CN': 'AI助手'}
 //组件描述
@@ -9,8 +9,8 @@ const description = {'zh-CN': 'AI助手'}
 const keywords = [WidgetKeyword.RECOMMEND]
 //组件关键词
 const AiWidgetDefine = new Widget({
-    path: "/widget/ai",
-    configPagePath: 'widget/config/ai',
+    path: "/widget/chatgpt",
+    configPagePath: '/widget/config/chatgpt',
     name: name,
     title: title,
     description: description,
