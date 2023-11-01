@@ -12,16 +12,6 @@
     "remote": "widget dependencies -t remote",
     "local": "widget dependencies -t local"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "react",
-        "react-dom",
-        "rollup",
-        "@types/react"
-      ]
-    }
-  },
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
     "@vueuse/core": "^9.4.0",
@@ -31,6 +21,7 @@
     "element-plus": "^2.2.28",
     "highlight.js": "^11.7.0",
     "marked": "^4.2.12",
+    "nprogress": "^0.2.0",
     "openai": "^3.1.0",
     "vue": "^3.2.30",
     "vue-i18n": "^9.2.2",
@@ -38,6 +29,7 @@
   },
   "devDependencies": {
     "@types/marked": "^4.0.8",
+    "@types/nprogress": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "@vitejs/plugin-vue": "^4.0.0",
