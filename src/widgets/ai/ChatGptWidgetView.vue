@@ -42,7 +42,7 @@ const { widgetData, widgetParams } = useWidget(ChatGptConfigData, {
     }
   }
 })
-const x = ref(0)
+const x = ref(100)
 const windowWidth = screen.width / 3
 
 const animationX = useTransition(x, {
@@ -55,12 +55,10 @@ onMounted(async () => {
   show()
   await delay(500)
   if (webView.value) {
-    webView.value!.addEventListener('did-start-navigation', () => {
+    webView.value!.addEventListener('did-start-loading', () => {
       NProgress.start()
-      console.log('did-start-loading')
     })
     webView.value.addEventListener('did-frame-finish-load', () => {
-      console.log('did-frame-finish-load')
       NProgress.done()
     })
     webView.value.loadURL('https://chat.openai.com')
@@ -68,7 +66,6 @@ onMounted(async () => {
 })
 
 watch(animationX, () => {
-  // BrowserWindowApi.setBounds({x: animationX.value})
   if (animationX.value == 100) {
     BrowserWindowApi.hide();
   }
@@ -119,7 +116,6 @@ $padding: 16px;
   height: 100vh;
   position: relative;
   padding: 16px;
-  transition: all 0.5ms ease-out;
   background: rgba(0, 0, 0, 0.3);
 
   .background {
