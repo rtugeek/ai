@@ -1,6 +1,6 @@
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget>-->
-  <div class="wrapper" :style="{transform: `translateX(${animationX}vw)`}">
+  <div class="wrapper" :style="{ transform: `translateX(${animationX}vw)` }">
     <webview ref="webView" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
     <div class="background"></div>
     <tip></tip>
@@ -16,6 +16,7 @@ import { ChatGptConfigData } from '@/widgets/model/ChatGptConfigData'
 import Tip from '@/components/Tip.vue'
 import NProgress from 'nprogress'
 import { delay } from '@/utils/TimeUtils'
+
 NProgress.start()
 const shortcut = ref<string>('')
 const webView = ref<Electron.WebviewTag>()
@@ -55,11 +56,19 @@ onMounted(async () => {
   show()
   await delay(500)
   if (webView.value) {
+    webView.value!.insertCSS('body{color:black}')
     webView.value!.addEventListener('did-start-loading', () => {
       NProgress.start()
     })
+    webView.value!.addEventListener('did-fail-load', (e) => {
+      console.error(e)
+    })
+
     webView.value.addEventListener('did-frame-finish-load', () => {
       NProgress.done()
+    })
+    webView.value.addEventListener('did-finish-load', (e) => {
+      console.log(e)
     })
     webView.value.loadURL('https://chat.openai.com')
   }
@@ -67,13 +76,13 @@ onMounted(async () => {
 
 watch(animationX, () => {
   if (animationX.value == 100) {
-    BrowserWindowApi.hide();
+    BrowserWindowApi.hide()
   }
 })
 
 const show = () => {
-  BrowserWindowApi.show();
-  x.value = 0;
+  BrowserWindowApi.show()
+  x.value = 0
   console.log('show')
 }
 
@@ -110,6 +119,14 @@ useShortcutListener((shortcut: string) => {
 
 <style scoped lang="scss">
 $padding: 16px;
+.background {
+  display: block;
+  position: absolute;
+  width: calc(100% - 16px * 2);
+  height: calc(100% - 16px * 2);
+  background: white;
+}
+
 .wrapper {
   border-radius: 8px 0 0 8px;
   width: 100vw;
@@ -118,19 +135,18 @@ $padding: 16px;
   padding: 16px;
   background: rgba(0, 0, 0, 0.3);
 
-  .background {
-    display: block;
-    position: absolute;
-    width: calc(100% - 16px * 2);
-    height: calc(100% - 16px * 2);
-    background: white;
-  }
-
   webview {
     width: calc(100% - 16px * 2);
     height: calc(100% - 16px * 2);
     z-index: 99;
     position: absolute;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .background {
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.49);
   }
 }
 </style>

@@ -20,7 +20,13 @@ export default defineConfig({
     }
   },
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => ['webview'].includes(tag)
+        }
+      }
+    }),
     ViteWidget({ generateFullNamePackage: true }),
     AutoImport({
       resolvers: [ElementPlusResolver()]
