@@ -1,20 +1,11 @@
-<template>
-  <!--    <chatgpt-search-widget></chatgpt-search-widget>-->
-  <div class="wrapper" :style="{ transform: `translateX(${animationX}vw)` }">
-    <webview ref="webView" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
-    <div class="background"></div>
-    <tip></tip>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { BrowserWindowApi, ShortcutApi } from '@widget-js/core'
 import { useShortcutListener, useWidget } from '@widget-js/vue3'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { TransitionPresets, useTransition } from '@vueuse/core'
+import NProgress from 'nprogress'
 import { ChatGptConfigData } from '@/widgets/model/ChatGptConfigData'
 import Tip from '@/components/Tip.vue'
-import NProgress from 'nprogress'
 import { delay } from '@/utils/TimeUtils'
 
 NProgress.start()
@@ -30,25 +21,25 @@ const { widgetData, widgetParams } = useWidget(ChatGptConfigData, {
         const result = await ShortcutApi.register(shortcut.value)
       }
 
-      //设置代理
+      // 设置代理
       if (data.hasProxyRule()) {
         console.log(data.getProxyRule())
         await BrowserWindowApi.setProxy({
-          proxyRules: data.getProxyRule()
+          proxyRules: data.getProxyRule(),
         })
         if (webView.value) {
           webView.value.reload()
         }
       }
     }
-  }
+  },
 })
 const x = ref(100)
 const windowWidth = screen.width / 3
 
 const animationX = useTransition(x, {
   duration: 500,
-  transition: TransitionPresets.easeInOutCubic
+  transition: TransitionPresets.easeInOutCubic,
 })
 
 onMounted(async () => {
@@ -80,23 +71,23 @@ watch(animationX, () => {
   }
 })
 
-const show = () => {
+function show() {
   BrowserWindowApi.show()
   x.value = 0
   console.log('show')
 }
 
-const hide = () => {
+function hide() {
   x.value = 100
   console.log('hide')
 }
-const setupWindow = async () => {
+async function setupWindow() {
   await BrowserWindowApi.setAlwaysOnTop(true)
   await BrowserWindowApi.setBounds({
     x: screen.availWidth - windowWidth,
     y: 0,
     width: windowWidth,
-    height: screen.availHeight
+    height: screen.availHeight,
   })
 }
 
@@ -110,12 +101,22 @@ useShortcutListener((shortcut: string) => {
   if (isShowing.value) {
     hide()
     BrowserWindowApi.blur()
-  } else {
+  }
+  else {
     show()
     BrowserWindowApi.focus()
   }
 })
 </script>
+
+<template>
+  <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
+  <div class="wrapper" :style="{ transform: `translateX(${animationX}vw)` }">
+    <webview ref="webView" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
+    <div class="background" />
+    <Tip />
+  </div>
+</template>
 
 <style scoped lang="scss">
 $padding: 16px;

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from 'vue'
 
-const showTips = ref<boolean>( true);
+const showTips = ref<boolean>(true)
 if (localStorage.getItem('tips')) {
-  showTips.value = false;
+  showTips.value = false
 }
-const closeTip = ()=>{
-  localStorage.setItem('tips','false')
-  showTips.value = false;
-};
+function closeTip() {
+  localStorage.setItem('tips', 'false')
+  showTips.value = false
+}
 </script>
 
 <template>
-  <div class="tips" v-if="showTips">
+  <div v-if="showTips" class="tips">
     <h3>使用说明</h3>
     <ol>
       <li>1.组件需要科学上网才能正常使用</li>
@@ -20,7 +20,9 @@ const closeTip = ()=>{
       <li>3.上网IP需要避开香港、澳门等不能使用的区域</li>
     </ol>
     <div class="button">
-      <el-button type="primary" @click="closeTip">知道了</el-button>
+      <el-button type="primary" @click="closeTip">
+        知道了
+      </el-button>
     </div>
   </div>
 </template>
@@ -50,5 +52,4 @@ const closeTip = ()=>{
   }
 
 }
-
 </style>

@@ -1,12 +1,14 @@
-<template>
-  <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-</template>
-
 <script>
 export default {
-  name: "Loading"
+  name: 'Loading',
 }
 </script>
+
+<template>
+  <div class="lds-ellipsis">
+    <div /><div /><div /><div />
+  </div>
+</template>
 
 <style scoped>
 .lds-ellipsis {
@@ -64,5 +66,4 @@ export default {
     transform: translate(24px, 0);
   }
 }
-
 </style>

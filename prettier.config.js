@@ -16,5 +16,5 @@ module.exports = {
   htmlWhitespaceSensitivity: 'strict',
   endOfLine: 'auto',
   rangeStart: 0,
-  plugins: [require('prettier-plugin-tailwindcss')]
+  plugins: [require('prettier-plugin-tailwindcss')],
 }

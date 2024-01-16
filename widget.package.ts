@@ -5,7 +5,7 @@ export default new WidgetPackage({
   author: 'Neo Fu',
   homepage: 'https://widgetjs.cn',
   description: {
-    'zh-CN': 'ChatGPT助手'
+    'zh-CN': 'ChatGPT助手',
   },
   remote: {
     entry: 'https://rtugeek.gitee.io/ai',
@@ -21,8 +21,8 @@ export default new WidgetPackage({
   devOptions: {
     folder: './src/widgets/',
     route: true,
-    devUrl: 'http://localhost:5174/ai'
+    devUrl: 'http://localhost:5174/ai',
   },
   widgets: [],
-  permissions: []
+  permissions: [],
 })
