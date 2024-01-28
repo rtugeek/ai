@@ -11,19 +11,18 @@ import { delay } from '@/utils/TimeUtils'
 NProgress.start()
 const shortcut = ref<string>('')
 const webView = ref<Electron.WebviewTag>()
-const { widgetData, widgetParams } = useWidget(ChatGptConfigData, {
+useWidget<ChatGptConfigData>(ChatGptConfigData, {
   loadDataByWidgetName: true,
-  onDataLoaded: async (data) => {
+  onDataLoaded: async (data, _) => {
     if (data) {
       if (data.shortcut != shortcut.value) {
         ShortcutApi.unregister(shortcut.value)
         shortcut.value = data.shortcut
-        const result = await ShortcutApi.register(shortcut.value)
+        await ShortcutApi.register(shortcut.value)
       }
 
       // 设置代理
       if (data.hasProxyRule()) {
-        console.log(data.getProxyRule())
         await BrowserWindowApi.setProxy({
           proxyRules: data.getProxyRule(),
         })
@@ -58,8 +57,9 @@ onMounted(async () => {
     webView.value.addEventListener('did-frame-finish-load', () => {
       NProgress.done()
     })
-    webView.value.addEventListener('did-finish-load', (e) => {
-      console.log(e)
+
+    webView.value.addEventListener('did-finish-load', (_) => {
+      NProgress.done()
     })
     webView.value.loadURL('https://chat.openai.com')
   }
@@ -74,12 +74,10 @@ watch(animationX, () => {
 function show() {
   BrowserWindowApi.show()
   x.value = 0
-  console.log('show')
 }
 
 function hide() {
   x.value = 100
-  console.log('hide')
 }
 async function setupWindow() {
   await BrowserWindowApi.setAlwaysOnTop(true)
@@ -97,7 +95,7 @@ const isShowing = computed(() => {
   return x.value == 0
 })
 
-useShortcutListener((shortcut: string) => {
+useShortcutListener((_: string) => {
   if (isShowing.value) {
     hide()
     BrowserWindowApi.blur()
@@ -105,6 +103,14 @@ useShortcutListener((shortcut: string) => {
   else {
     show()
     BrowserWindowApi.focus()
+    webView.value!.focus()
+    // language=JavaScript
+    webView.value?.executeJavaScript(`(function() {
+        let promptTextarea = document.querySelector('#prompt-textarea')
+        if (promptTextarea) {
+            promptTextarea.focus()
+        }
+    })()`)
   }
 })
 </script>

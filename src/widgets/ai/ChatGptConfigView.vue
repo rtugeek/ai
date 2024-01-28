@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { WidgetDataApi } from '@widget-js/core'
 import { BindShortcutField, WidgetConfigOption, useWidget } from '@widget-js/vue3'
 import { ChatGptConfigData } from '@/widgets/model/ChatGptConfigData'
 
 const shortcut = ref('Meta+Alt+C')
 
-const { widgetData, widgetParams } = useWidget(ChatGptConfigData, {
+const { widgetData, widgetParams, save } = useWidget(ChatGptConfigData, {
   loadDataByWidgetName: true,
   onDataLoaded: async (data) => {
     shortcut.value = data?.shortcut ?? ''
@@ -15,30 +14,18 @@ const { widgetData, widgetParams } = useWidget(ChatGptConfigData, {
 
 const widgetConfigOption = reactive(new WidgetConfigOption({
   custom: true,
-  preview: false,
 }))
-
-async function onApplyClick() {
-  widgetData.value.shortcut = shortcut.value
-  console.log('id', widgetData.value)
-  console.log('id', widgetParams.id)
-  await WidgetDataApi.saveByName(widgetData.value)
-}
-
-async function onSaveClick() {
-  await onApplyClick()
-  window.close()
-}
 </script>
 
 <template>
   <widget-edit-dialog
-    :widget-params="widgetParams" :option="widgetConfigOption"
-    :widget-data="widgetData"
-    @apply="onApplyClick"
-    @confirm="onSaveClick"
+    v-model="widgetData"
+    :widget-params="widgetParams"
+    :option="widgetConfigOption"
+    @apply="save"
+    @confirm="save({ closeWindow: true })"
   >
-    <template #form>
+    <template #custom>
       <el-form :label-width="90" label-position="left">
         <el-form-item label="呼出快捷键">
           <BindShortcutField v-model="shortcut" />

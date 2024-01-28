@@ -9,6 +9,10 @@ export class ChatGptConfigData extends WidgetData {
   port?: string
   host?: string
 
+  constructor(name: string, id?: string) {
+    super(name, id)
+  }
+
   getProxyRule(): string {
     return `${this.protocol}://${this.host}:${this.port}`
   }

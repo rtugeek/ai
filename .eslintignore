@@ -1,4 +1,9 @@
-build/*.js
-config/*.js
-src/assets
-src/
+dist/
+node_modules
+patches/
+types/
+cache/
+!/.eslintrc.js
+!/rollup.config.js
+!.test
+.temp

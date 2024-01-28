@@ -24,18 +24,18 @@
       "webpack-env",
       "jest",
       "element-plus/global",
-      "@widget-js/core/electron.d.ts"
+      "@widget-js/core/dist/electron.d.ts"
     ],
     "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "noEmit": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
     "removeComments": true,
+    "sourceMap": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true
+    "skipLibCheck": true
   },
   "references": [
     {

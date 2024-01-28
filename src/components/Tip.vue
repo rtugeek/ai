@@ -17,7 +17,7 @@ function closeTip() {
     <ol>
       <li>1.组件需要科学上网才能正常使用</li>
       <li>2.科学上网在 鼠标右键 -> 设置 中设置</li>
-      <li>3.上网IP需要避开香港、澳门等不能使用的区域</li>
+      <li>3.科学上网IP需要避开香港、澳门等不能使用的区域</li>
     </ol>
     <div class="button">
       <el-button type="primary" @click="closeTip">

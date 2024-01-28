@@ -1,9 +1,11 @@
 <p align="center">
 <a href="https://github.com/widget-js/widgets">
-  <img width="150" src="https://raw.githubusercontent.com/widget-js/widgets/master/screenshot/logo.png" alt="Widgets - Capable and ergonomic widgets." width="300">
+  <img width="100" src="https://raw.githubusercontent.com/widget-js/widgets/master/screenshot/logo.png" alt="Widgets - Capable and ergonomic widgets." width="300">
 </a>
 <br>
-桌面组件 - AI组件包
+<b>桌面组件 - AI组件包</b>
+<br>
+一键呼出ChatGPT
 </p>
 
 <p align="center">
@@ -14,6 +16,10 @@
   <a href="https://txc.qq.com/products/450189"><img src="https://img.shields.io/badge/-功能建议-2378ff?logo=vowpalwabbit&logoColor=white&sanitize=true" alt="Feedback"></a>
   <a href="https://discord.gg/vwSAaRR8cT"><img src="https://img.shields.io/badge/-Discord-5865F2?logo=discord&logoColor=white" alt="discord"></a>
 </p>
+
+### 截图
+
+![截图](./screenshot.png)
 
 ### 说明
 
