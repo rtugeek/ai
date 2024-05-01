@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { BindShortcutField, WidgetConfigOption, useWidget } from '@widget-js/vue3'
+import { WidgetBindShortcutField, WidgetConfigOption, useWidget } from '@widget-js/vue3'
 import { ChatGptConfigData } from '@/widgets/model/ChatGptConfigData'
 
 const shortcut = ref('Meta+Alt+C')
@@ -28,7 +28,7 @@ const widgetConfigOption = reactive(new WidgetConfigOption({
     <template #custom>
       <el-form :label-width="90" label-position="left">
         <el-form-item label="呼出快捷键">
-          <BindShortcutField v-model="shortcut" />
+          <WidgetBindShortcutField v-model="shortcut" />
         </el-form-item>
         <el-form-item label="代理协议">
           <el-radio-group v-model="widgetData.protocol">

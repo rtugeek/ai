@@ -8,15 +8,15 @@ export default new WidgetPackage({
     'zh-CN': 'ChatGPT助手',
   },
   remote: {
-    entry: 'https://rtugeek.gitee.io/ai',
+    entry: 'https://widgetjs.cn/ai',
     hash: true,
     base: '/ai',
+    hostname: 'widgetjs.cn'
   },
-  remoteEntry: 'https://rtugeek.gitee.io/ai',
-  remotePackage: 'https://rtugeek.gitee.io/ai/widget.json',
+  remoteEntry: 'https://widgetjs.cn/ai',
+  remotePackage: 'https://widgetjs.cn/ai/widget.json',
   entry: 'index.html',
   title: { 'zh-CN': '一键呼出ChatGPT' },
-  version: '0.0.1',
   hash: true,
   devOptions: {
     folder: './src/widgets/',

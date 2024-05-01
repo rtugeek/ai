@@ -1,6 +1,6 @@
 {
   "name": "cn.widgetjs.widgets.ai.assistant",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "author": "Neo Fu",
   "homepage": "https://widgetjs.cn",
   "title": {
@@ -10,12 +10,13 @@
     "zh-CN": "ChatGPT助手"
   },
   "entry": "index.html",
-  "remoteEntry": "https://rtugeek.gitee.io/ai",
-  "remotePackage": "https://rtugeek.gitee.io/ai/widget.json",
+  "remoteEntry": "https://widgetjs.cn/ai",
+  "remotePackage": "https://widgetjs.cn/ai/widget.json",
   "remote": {
-    "entry": "https://rtugeek.gitee.io/ai",
+    "entry": "https://widgetjs.cn/ai",
     "hash": true,
-    "base": "/ai"
+    "base": "/ai",
+    "hostname": "widgetjs.cn"
   },
   "hash": true,
   "url": "",

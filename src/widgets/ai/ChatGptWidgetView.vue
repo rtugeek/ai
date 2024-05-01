@@ -95,7 +95,7 @@ const isShowing = computed(() => {
   return x.value == 0
 })
 
-useShortcutListener((_: string) => {
+useShortcutListener(async (_: string) => {
   if (isShowing.value) {
     hide()
     BrowserWindowApi.blur()
@@ -103,7 +103,9 @@ useShortcutListener((_: string) => {
   else {
     show()
     BrowserWindowApi.focus()
+    await delay(800)
     webView.value!.focus()
+    await delay(800)
     // language=JavaScript
     webView.value?.executeJavaScript(`(function() {
         let promptTextarea = document.querySelector('#prompt-textarea')
