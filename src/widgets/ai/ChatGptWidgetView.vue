@@ -103,9 +103,9 @@ useShortcutListener(async (_: string) => {
   else {
     show()
     BrowserWindowApi.focus()
-    await delay(800)
+    await delay(500)
     webView.value!.focus()
-    await delay(800)
+    await delay(200)
     // language=JavaScript
     webView.value?.executeJavaScript(`(function() {
         let promptTextarea = document.querySelector('#prompt-textarea')
