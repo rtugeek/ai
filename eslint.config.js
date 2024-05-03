@@ -23,6 +23,7 @@ export default antfu({
     'import/namespace': 'off',
     'eqeqeq': 'off',
     'import/default': 'off',
+    'ts/no-use-before-define': 'off',
     'node/prefer-global/process': 'off',
     'import/no-named-as-default': 'off',
     'import/no-named-as-default-member': 'off',
