@@ -1,14 +1,19 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { computed, reactive } from 'vue'
 import { WidgetBindShortcutField, WidgetConfigOption, useWidget } from '@widget-js/vue3'
 import { ChatGptConfigData } from '@/widgets/model/ChatGptConfigData'
 
-const shortcut = ref('Meta+Alt+C')
-
 const { widgetData, widgetParams, save } = useWidget(ChatGptConfigData, {
   loadDataByWidgetName: true,
-  onDataLoaded: async (data) => {
+  onDataLoaded: async (data, _) => {
     shortcut.value = data?.shortcut ?? ''
+  },
+})
+
+const shortcut = computed({
+  get: () => widgetData.value.shortcut,
+  set: (value) => {
+    widgetData.value.shortcut = value
   },
 })
 
