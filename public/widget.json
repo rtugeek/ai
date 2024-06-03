@@ -49,6 +49,9 @@
       "meta": {},
       "backgroundThrottling": false,
       "previewImage": "/chatgpt.png",
+      "categories": [
+        "productivity"
+      ],
       "supportDeployMode": 65536,
       "configPagePath": "/widget/config/chatgpt",
       "routes": []

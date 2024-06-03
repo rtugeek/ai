@@ -120,7 +120,7 @@ useShortcutListener(async (_: string) => {
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
   <div class="wrapper" :style="{ transform: `translateX(${animationX}vw)` }">
-    <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
+    <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant1" />
     <div class="background" />
     <Tip />
   </div>

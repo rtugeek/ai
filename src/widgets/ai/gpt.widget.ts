@@ -21,6 +21,7 @@ const AiWidgetDefine = new Widget({
   minWidth: 5,
   maxWidth: 12,
   minHeight: 5,
+  categories: ['productivity'],
   webviewTag: true,
   previewImage: '/chatgpt.png',
   maxHeight: 15,
