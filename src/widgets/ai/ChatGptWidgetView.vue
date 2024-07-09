@@ -1,37 +1,41 @@
 <script lang="ts" setup>
 import { BrowserWindowApi, ShortcutApi } from '@widget-js/core'
-import { useShortcutListener, useWidget } from '@widget-js/vue3'
+import { useShortcutListener, useWidgetParams } from '@widget-js/vue3'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { TransitionPresets, useTransition } from '@vueuse/core'
 import NProgress from 'nprogress'
-import { ChatGptConfigData } from '@/widgets/model/ChatGptConfigData'
+import consola from 'consola'
 import Tip from '@/components/Tip.vue'
 import { delay } from '@/utils/TimeUtils'
+import { useConfig } from '@/composition/useConfig'
 
 NProgress.start()
 const shortcut = ref<string>('')
 const webView = ref<Electron.WebviewTag>()
-useWidget<ChatGptConfigData>(ChatGptConfigData, {
-  loadDataByWidgetName: true,
-  onDataLoaded: async (data, _) => {
-    if (data) {
-      if (data.shortcut != shortcut.value) {
-        ShortcutApi.unregister(shortcut.value)
-        shortcut.value = data.shortcut
-        await ShortcutApi.register(shortcut.value)
-      }
+const widgetParams = useWidgetParams()
+consola.info('widget id', widgetParams.id)
+const { config, proxyRule, platformUrl } = useConfig()
+BrowserWindowApi.setResizable(false)
+async function updateShortcut() {
+  ShortcutApi.unregister(shortcut.value)
+  shortcut.value = config.value.shortcut
+  await ShortcutApi.register(shortcut.value)
+}
+watch(config, async () => {
+  if (config.value.shortcut != shortcut.value) {
+    updateShortcut()
+  }
+}, { deep: true })
 
-      // 设置代理
-      if (data.hasProxyRule()) {
-        await BrowserWindowApi.setProxy({
-          proxyRules: data.getProxyRule(),
-        })
-        if (webView.value) {
-          webView.value.reload()
-        }
-      }
-    }
-  },
+watch(platformUrl, () => {
+  if (webView.value) {
+    webView.value.loadURL(platformUrl.value)
+  }
+})
+
+watch(proxyRule, async () => {
+  consola.info('new proxy', proxyRule.value)
+  await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
 })
 const x = ref(100)
 const windowWidth = screen.width / 3
@@ -44,8 +48,10 @@ const animationX = useTransition(x, {
 onMounted(async () => {
   await nextTick()
   show()
+  updateShortcut()
   await delay(500)
   if (webView.value) {
+    await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
     webView.value!.insertCSS('body{color:black}')
     webView.value!.addEventListener('did-start-loading', () => {
       NProgress.start()
@@ -61,7 +67,7 @@ onMounted(async () => {
     webView.value.addEventListener('did-finish-load', (_) => {
       NProgress.done()
     })
-    webView.value.loadURL('https://chat.openai.com')
+    webView.value.loadURL(platformUrl.value)
   }
 })
 
@@ -120,7 +126,7 @@ useShortcutListener(async (_: string) => {
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
   <div class="wrapper" :style="{ transform: `translateX(${animationX}vw)` }">
-    <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant1" />
+    <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant1" />
     <div class="background" />
     <Tip />
   </div>

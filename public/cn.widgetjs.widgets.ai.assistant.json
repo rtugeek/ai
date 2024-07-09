@@ -1,6 +1,6 @@
 {
   "name": "cn.widgetjs.widgets.ai.assistant",
-  "version": "0.0.4",
+  "version": "0.1.2",
   "author": "Neo Fu",
   "homepage": "https://widgetjs.cn",
   "title": {
@@ -27,7 +27,7 @@
         "zh-CN": "AI助手"
       },
       "description": {
-        "zh-CN": "AI助手"
+        "zh-CN": "支持一件呼出ChatGPT或Gemini"
       },
       "keywords": [
         "recommend"
@@ -35,13 +35,13 @@
       "security": false,
       "permissions": [],
       "lang": "zh-CN",
-      "width": 8,
-      "height": 8,
-      "maxWidth": 12,
+      "width": 1,
+      "height": 1,
+      "maxWidth": 1,
       "webviewTag": true,
       "maxHeight": 15,
-      "minWidth": 5,
-      "minHeight": 5,
+      "minWidth": 1,
+      "minHeight": 1,
       "movable": true,
       "singleton": false,
       "resizable": true,
@@ -54,7 +54,10 @@
       ],
       "supportDeployMode": 65536,
       "configPagePath": "/widget/config/chatgpt",
-      "routes": []
+      "routes": [],
+      "browserWindowOptions": {
+        "webviewTag": true
+      }
     }
   ],
   "pages": []

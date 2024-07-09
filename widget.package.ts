@@ -11,7 +11,7 @@ export default new WidgetPackage({
     entry: 'https://widgetjs.cn/ai',
     hash: true,
     base: '/ai',
-    hostname: 'widgetjs.cn'
+    hostname: 'widgetjs.cn',
   },
   remoteEntry: 'https://widgetjs.cn/ai',
   remotePackage: 'https://widgetjs.cn/ai/widget.json',

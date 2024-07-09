@@ -1,42 +1,35 @@
 <script lang="ts" setup>
-import { computed, reactive } from 'vue'
-import { WidgetBindShortcutField, WidgetConfigOption, useWidget } from '@widget-js/vue3'
-import { ChatGptConfigData } from '@/widgets/model/ChatGptConfigData'
+import { reactive } from 'vue'
+import { WidgetBindShortcutField, WidgetConfigOption, useWidgetParams } from '@widget-js/vue3'
+import { useConfig } from '@/composition/useConfig'
+import AiPlatformRadioGroup from '@/components/AiPlatformRadioGroup.vue'
 
-const { widgetData, widgetParams, save } = useWidget(ChatGptConfigData, {
-  loadDataByWidgetName: true,
-  onDataLoaded: async (data, _) => {
-    shortcut.value = data?.shortcut ?? ''
-  },
-})
-
-const shortcut = computed({
-  get: () => widgetData.value.shortcut,
-  set: (value) => {
-    widgetData.value.shortcut = value
-  },
-})
-
+const widgetParams = useWidgetParams()
+const { config } = useConfig()
 const widgetConfigOption = reactive(new WidgetConfigOption({
   custom: true,
 }))
+function save() {
+  window.close()
+}
 </script>
 
 <template>
   <widget-edit-dialog
-    v-model="widgetData"
     :widget-params="widgetParams"
     :option="widgetConfigOption"
-    @apply="save"
-    @confirm="save({ closeWindow: true })"
+    @confirm="save"
   >
     <template #custom>
       <el-form :label-width="90" label-position="left">
+        <el-form-item label="AI平台">
+          <AiPlatformRadioGroup v-model="config.platform" />
+        </el-form-item>
         <el-form-item label="呼出快捷键">
-          <WidgetBindShortcutField v-model="shortcut" />
+          <WidgetBindShortcutField v-model="config.shortcut" />
         </el-form-item>
         <el-form-item label="代理协议">
-          <el-radio-group v-model="widgetData.protocol">
+          <el-radio-group v-model="config.protocol">
             <el-radio label="http">
               HTTP
             </el-radio>
@@ -52,10 +45,10 @@ const widgetConfigOption = reactive(new WidgetConfigOption({
           </el-radio-group>
         </el-form-item>
         <el-form-item label="代理服务器">
-          <el-input v-model="widgetData.host" class="flex-1" placeholder="如：127.0.0.1" />
+          <el-input v-model="config.host" class="flex-1" placeholder="如：127.0.0.1" />
         </el-form-item>
         <el-form-item label="代理端口">
-          <el-input v-model="widgetData.port" style="width: 50px" placeholder="如：7890" />
+          <el-input v-model="config.port" style="width: 50px" placeholder="如：7890" />
         </el-form-item>
       </el-form>
     </template>

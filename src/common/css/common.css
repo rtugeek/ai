@@ -5,6 +5,7 @@
 body *, page view {
     box-sizing: border-box;
     flex-shrink: 0;
+  user-select: none;
 }
 
 body {
