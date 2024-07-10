@@ -2,9 +2,10 @@
 import { BrowserWindowApi, ShortcutApi } from '@widget-js/core'
 import { useShortcutListener, useWidgetParams } from '@widget-js/vue3'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { TransitionPresets, useTransition } from '@vueuse/core'
+import { TransitionPresets, useDebounceFn, useTransition } from '@vueuse/core'
 import NProgress from 'nprogress'
 import consola from 'consola'
+import { ElMessage } from 'element-plus'
 import Tip from '@/components/Tip.vue'
 import { delay } from '@/utils/TimeUtils'
 import { useConfig } from '@/composition/useConfig'
@@ -15,7 +16,6 @@ const webView = ref<Electron.WebviewTag>()
 const widgetParams = useWidgetParams()
 consola.info('widget id', widgetParams.id)
 const { config, proxyRule, platformUrl } = useConfig()
-BrowserWindowApi.setResizable(false)
 async function updateShortcut() {
   ShortcutApi.unregister(shortcut.value)
   shortcut.value = config.value.shortcut
@@ -33,9 +33,14 @@ watch(platformUrl, () => {
   }
 })
 
+const reloadProxy = useDebounceFn(async () => {
+  await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
+  window.location.reload()
+}, 2000)
+
 watch(proxyRule, async () => {
   consola.info('new proxy', proxyRule.value)
-  await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
+  reloadProxy()
 })
 const x = ref(100)
 const windowWidth = screen.width / 3
@@ -57,6 +62,12 @@ onMounted(async () => {
       NProgress.start()
     })
     webView.value!.addEventListener('did-fail-load', (e) => {
+      const message = e.errorCode == -3 ? '-3:如果出现人机无限验证，请尝试切换代理IP' : `${e.errorDescription} ${e.errorCode}`
+      ElMessage({
+        message,
+        type: 'error',
+        plain: true,
+      })
       console.error(e)
     })
 
@@ -85,13 +96,17 @@ function show() {
 function hide() {
   x.value = 100
 }
+
 async function setupWindow() {
-  await BrowserWindowApi.setAlwaysOnTop(true)
-  await BrowserWindowApi.setBounds({
-    x: screen.availWidth - windowWidth,
-    y: 0,
+  await BrowserWindowApi.setup({
     width: windowWidth,
     height: screen.availHeight,
+    resizable: false,
+    alwaysOnTop: true,
+  })
+  await BrowserWindowApi.setPosition({
+    x: screen.availWidth - windowWidth,
+    y: 0,
   })
 }
 
@@ -126,7 +141,7 @@ useShortcutListener(async (_: string) => {
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
   <div class="wrapper" :style="{ transform: `translateX(${animationX}vw)` }">
-    <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant1" />
+    <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
     <div class="background" />
     <Tip />
   </div>

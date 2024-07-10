@@ -1,7 +1,7 @@
 {
   "name": "@widget-js/ai",
   "type": "module",
-  "version": "0.1.2",
+  "version": "0.2.2",
   "private": true,
   "author": "Widget JS",
   "license": "MIT",

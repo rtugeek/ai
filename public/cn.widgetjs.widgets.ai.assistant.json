@@ -1,6 +1,6 @@
 {
   "name": "cn.widgetjs.widgets.ai.assistant",
-  "version": "0.1.2",
+  "version": "0.2.2",
   "author": "Neo Fu",
   "homepage": "https://widgetjs.cn",
   "title": {
@@ -53,7 +53,7 @@
         "productivity"
       ],
       "supportDeployMode": 65536,
-      "configPagePath": "/widget/config/chatgpt",
+      "configPagePath": "/widget/config/chatgpt?frame=true&transparent=false",
       "routes": [],
       "browserWindowOptions": {
         "webviewTag": true

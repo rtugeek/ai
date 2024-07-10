@@ -22,8 +22,6 @@ function openSetting() {
     <h3>使用说明</h3>
     <ol>
       <li>组件需要科学上网才能正常使用</li>
-      <li>如果用的Clash,记得开启系统代理</li>
-      <li>如果出现Cloudflare人机无限验证，请尝试切换代理IP</li>
       <li>科学上网IP需要避开香港、澳门等不能使用的区域</li>
     </ol>
     <el-form-item label="选择AI平台">
