@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import { BrowserWindowApi, ShortcutApi } from '@widget-js/core'
 import { useShortcutListener, useWidgetParams } from '@widget-js/vue3'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { TransitionPresets, useDebounceFn, useTransition } from '@vueuse/core'
+import { nextTick, onMounted, ref, watch } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
 import NProgress from 'nprogress'
 import consola from 'consola'
 import { ElMessage } from 'element-plus'
 import Tip from '@/components/Tip.vue'
 import { delay } from '@/utils/TimeUtils'
 import { useConfig } from '@/composition/useConfig'
+import { useWindowState } from '@/composition/useWindowState'
 
 NProgress.start()
 const shortcut = ref<string>('')
@@ -42,25 +43,23 @@ watch(proxyRule, async () => {
   consola.info('new proxy', proxyRule.value)
   reloadProxy()
 })
-const x = ref(100)
 const windowWidth = screen.width / 3
-
-const animationX = useTransition(x, {
-  duration: 500,
-  transition: TransitionPresets.easeInOutCubic,
-})
+const windowState = useWindowState()
 
 onMounted(async () => {
   await nextTick()
-  show()
+  windowState.show()
   updateShortcut()
   await delay(500)
   if (webView.value) {
-    await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
+    if (proxyRule.value) {
+      await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
+    }
     webView.value!.insertCSS('body{color:black}')
     webView.value!.addEventListener('did-start-loading', () => {
       NProgress.start()
     })
+
     webView.value!.addEventListener('did-fail-load', (e) => {
       const message = e.errorCode == -3 ? '-3:如果出现人机无限验证，请尝试切换代理IP' : `${e.errorDescription} ${e.errorCode}`
       ElMessage({
@@ -82,21 +81,6 @@ onMounted(async () => {
   }
 })
 
-watch(animationX, () => {
-  if (animationX.value == 100) {
-    BrowserWindowApi.hide()
-  }
-})
-
-function show() {
-  BrowserWindowApi.show()
-  x.value = 0
-}
-
-function hide() {
-  x.value = 100
-}
-
 async function setupWindow() {
   await BrowserWindowApi.setup({
     width: windowWidth,
@@ -112,17 +96,13 @@ async function setupWindow() {
 
 setupWindow()
 
-const isShowing = computed(() => {
-  return x.value == 0
-})
-
 useShortcutListener(async (_: string) => {
-  if (isShowing.value) {
-    hide()
+  if (windowState.isShowing.value) {
+    windowState.hide()
     BrowserWindowApi.blur()
   }
   else {
-    show()
+    windowState.show()
     BrowserWindowApi.focus()
     await delay(500)
     webView.value!.focus()
@@ -140,7 +120,7 @@ useShortcutListener(async (_: string) => {
 
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
-  <div class="wrapper" :style="{ transform: `translateX(${animationX}vw)` }">
+  <div class="wrapper" :style="{ transform: `translateX(${windowState.animationX.value}vw)` }">
     <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
     <div class="background" />
     <Tip />
