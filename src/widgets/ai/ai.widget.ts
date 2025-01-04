@@ -14,7 +14,7 @@ const AiWidget = new BackgroundWidget({
   socialLinks: [
     {
       name: 'github',
-      link: 'https://github.com/widget-js/widget-ai',
+      link: 'https://github.com/rtugeek/ai',
     },
   ],
   webviewTag: true,

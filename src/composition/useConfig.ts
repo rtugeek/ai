@@ -1,10 +1,10 @@
 import { useStorage } from '@vueuse/core'
 import { computed } from 'vue'
-import type { ChatGptConfig } from '@/widgets/ai/ChatGptConfig'
-import { DEFAULT_CONFIG } from '@/widgets/ai/ChatGptConfig'
+import type { AiConfig } from '@/widgets/ai/AiConfig'
+import { DEFAULT_CONFIG } from '@/widgets/ai/AiConfig'
 
 export function useConfig() {
-  const config = useStorage<ChatGptConfig>('config', DEFAULT_CONFIG)
+  const config = useStorage<AiConfig>('config', DEFAULT_CONFIG)
   const proxyRule = computed(() => {
     if (hasProxyRule.value) {
       return `${config.value.protocol}://${config.value.host}:${config.value.port}`

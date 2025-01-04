@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AIPlatform } from '@/widgets/ai/ChatGptConfig'
+import type { AIPlatform } from '@/widgets/ai/AiConfig'
 
 const model = defineModel({ default: 'chatgpt' })
 
