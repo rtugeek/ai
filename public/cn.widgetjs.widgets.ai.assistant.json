@@ -1,6 +1,6 @@
 {
   "name": "cn.widgetjs.widgets.ai.assistant",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "Neo Fu",
   "homepage": "https://widgetjs.cn",
   "title": {
@@ -24,10 +24,12 @@
     {
       "name": "cn.widgetjs.widgets.ai.assistant.chatgpt",
       "title": {
-        "zh-CN": "AI助手"
+        "zh-CN": "AI助手",
+        "en-US": "AI Assistant"
       },
       "description": {
-        "zh-CN": "支持一件呼出ChatGPT或Gemini"
+        "zh-CN": "一键呼出ChatGPT、Gemini、DeepSeek",
+        "en-US": "Call ChatGPT, Gemini, DeepSeek with shortcut"
       },
       "keywords": [
         "recommend"
@@ -48,7 +50,7 @@
       "path": "/widget/chatgpt",
       "meta": {},
       "backgroundThrottling": false,
-      "previewImage": "/chatgpt.png",
+      "previewImage": "/preview_ai.png",
       "categories": [
         "productivity"
       ],
@@ -57,7 +59,13 @@
       "routes": [],
       "browserWindowOptions": {
         "webviewTag": true
-      }
+      },
+      "socialLinks": [
+        {
+          "name": "github",
+          "link": "https://github.com/widget-js/widget-ai"
+        }
+      ]
     }
   ],
   "pages": []

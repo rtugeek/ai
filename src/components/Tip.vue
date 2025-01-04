@@ -6,7 +6,7 @@ import AiPlatformRadioGroup from '@/components/AiPlatformRadioGroup.vue'
 import { useConfig } from '@/composition/useConfig'
 
 const widgetParams = useWidgetParams()
-const showTip = useStorage('tip-3', true)
+const showTip = useStorage('tip-5', true)
 const { config } = useConfig()
 function closeTip() {
   showTip.value = false
@@ -21,7 +21,9 @@ function openSetting() {
   <div v-if="showTip" class="tips">
     <h3>使用说明</h3>
     <ol>
-      <li>组件需要科学上网才能正常使用</li>
+      <li>国内用户推荐使用<b class="blue">DeepSeek</b></li>
+      <li>默认快捷键<b class="blue">Win+Alt+C</b></li>
+      <li><b>ChatGPT</b>、<b>Gemini</b>需要科学上网才能正常使用</li>
       <li>科学上网IP需要避开香港、澳门等不能使用的区域</li>
     </ol>
     <el-form-item label="选择AI平台">
@@ -46,10 +48,14 @@ function openSetting() {
   height: calc(100% - 16px * 2);
   background: white;
   flex-direction: column;
+  font-weight: normal;
   justify-content: center;
   align-items: center;
   z-index: 100;
   gap: 1rem;
+  b.blue{
+    color: #0099ff
+  }
   font-size: 18px;
 
   .button{

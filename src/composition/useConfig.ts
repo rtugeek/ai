@@ -19,7 +19,15 @@ export function useConfig() {
   })
 
   const platformUrl = computed(() => {
-    return config.value.platform === 'chatgpt' ? 'https://chat.openai.com' : 'https://gemini.google.com'
+    if (config.value.platform === 'chatgpt') {
+      return 'https://chat.openai.com'
+    }
+    else if (config.value.platform === 'gemini') {
+      return 'https://gemini.google.com'
+    }
+    else {
+      return 'https://chat.deepseek.com/'
+    }
   })
   return { config, hasProxyRule, proxyRule, platformUrl }
 }

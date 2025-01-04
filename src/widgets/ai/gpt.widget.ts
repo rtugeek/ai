@@ -4,13 +4,19 @@ const AiWidget = new BackgroundWidget({
   path: '/widget/chatgpt',
   configPagePath: '/widget/config/chatgpt?frame=true&transparent=false',
   name: '.chatgpt',
-  title: { 'zh-CN': 'AI助手' },
-  description: { 'zh-CN': '支持一件呼出ChatGPT或Gemini' },
+  title: { 'zh-CN': 'AI助手', 'en-US': 'AI Assistant' },
+  description: { 'zh-CN': '一键呼出ChatGPT、Gemini、DeepSeek', 'en-US': 'Call ChatGPT, Gemini, DeepSeek with shortcut' },
   keywords: [WidgetKeyword.RECOMMEND],
   lang: 'zh-CN',
   categories: ['productivity'],
-  previewImage: '/chatgpt.png',
+  previewImage: '/preview_ai.png',
   maxHeight: 15,
+  socialLinks: [
+    {
+      name: 'github',
+      link: 'https://github.com/widget-js/widget-ai',
+    },
+  ],
   webviewTag: true,
   browserWindowOptions: {
     webviewTag: true,

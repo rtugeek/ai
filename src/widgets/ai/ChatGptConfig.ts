@@ -1,5 +1,5 @@
 export type ProxyProtocol = 'http' | 'https' | 'sock5' | 'sock4'
-export type AIPlatform = 'chatgpt' | 'gemini'
+export type AIPlatform = 'chatgpt' | 'gemini' | 'deepseek'
 export interface ChatGptConfig {
   proxy?: string
   shortcut: string
@@ -11,5 +11,5 @@ export interface ChatGptConfig {
 
 export const DEFAULT_CONFIG: ChatGptConfig = {
   shortcut: 'Meta+Alt+C',
-  platform: 'chatgpt',
+  platform: 'deepseek',
 }
