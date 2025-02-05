@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { WidgetJsPlugin } from '@widget-js/vue3'
 import NProgress from 'nprogress'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import '@widget-js/vue3/dist/style.css'
@@ -11,4 +12,4 @@ import 'uno.css'
 
 NProgress.configure({ trickle: false })
 
-createApp(App).use(WidgetJsPlugin).use(router).mount('#app')
+createApp(App).use(createPinia()).use(WidgetJsPlugin).use(router).mount('#app')

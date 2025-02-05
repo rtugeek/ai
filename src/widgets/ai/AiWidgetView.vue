@@ -1,22 +1,22 @@
 <script lang="ts" setup>
 import { BrowserWindowApi, ShortcutApi } from '@widget-js/core'
-import { useShortcutListener, useWidgetParams } from '@widget-js/vue3'
+import { useShortcutListener } from '@widget-js/vue3'
 import { nextTick, onMounted, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import NProgress from 'nprogress'
 import consola from 'consola'
-import { ElMessage } from 'element-plus'
+import { storeToRefs } from 'pinia'
 import Tip from '@/components/Tip.vue'
 import { delay } from '@/utils/TimeUtils'
-import { useConfig } from '@/composition/useConfig'
+import { useConfigStore } from '@/store/useConfigStore'
 import { useWindowState } from '@/composition/useWindowState'
+import WebviewComponent from '@/components/WebviewComponent.vue'
 
 NProgress.start()
 const shortcut = ref<string>('')
-const webView = ref<Electron.WebviewTag>()
-const widgetParams = useWidgetParams()
-consola.info('widget id', widgetParams.id)
-const { config, proxyRule, platformUrl } = useConfig()
+const webviewRef = ref<InstanceType<typeof WebviewComponent>>()
+const configStore = useConfigStore()
+const { config, platformUrl, proxyRule } = storeToRefs(configStore)
 async function updateShortcut() {
   ShortcutApi.unregister(shortcut.value)
   shortcut.value = config.value.shortcut
@@ -29,9 +29,7 @@ watch(config, async () => {
 }, { deep: true })
 
 watch(platformUrl, () => {
-  if (webView.value) {
-    webView.value.loadURL(platformUrl.value)
-  }
+  window.location.reload()
 })
 
 const reloadProxy = useDebounceFn(async () => {
@@ -43,58 +41,19 @@ watch(proxyRule, async () => {
   consola.info('new proxy', proxyRule.value)
   reloadProxy()
 })
-const windowWidth = screen.width / 3
+
 const windowState = useWindowState()
+windowState.setup()
 
 onMounted(async () => {
   await nextTick()
   windowState.show()
   updateShortcut()
   await delay(500)
-  if (webView.value) {
-    if (proxyRule.value) {
-      await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
-    }
-    webView.value!.insertCSS('body{color:black}')
-    webView.value!.addEventListener('did-start-loading', () => {
-      NProgress.start()
-    })
-
-    webView.value!.addEventListener('did-fail-load', (e) => {
-      const message = e.errorCode == -3 ? '-3:如果出现人机无限验证，请尝试切换代理IP' : `${e.errorDescription} ${e.errorCode}`
-      ElMessage({
-        message,
-        type: 'error',
-        plain: true,
-      })
-      console.error(e)
-    })
-
-    webView.value.addEventListener('did-frame-finish-load', () => {
-      NProgress.done()
-    })
-
-    webView.value.addEventListener('did-finish-load', (_) => {
-      NProgress.done()
-    })
-    webView.value.loadURL(platformUrl.value)
+  if (proxyRule.value) {
+    await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
   }
 })
-
-async function setupWindow() {
-  await BrowserWindowApi.setup({
-    width: windowWidth,
-    height: screen.availHeight,
-    resizable: false,
-    alwaysOnTop: true,
-  })
-  await BrowserWindowApi.setPosition({
-    x: screen.availWidth - windowWidth,
-    y: 0,
-  })
-}
-
-setupWindow()
 
 useShortcutListener(async (_: string) => {
   if (windowState.isShowing.value) {
@@ -105,15 +64,7 @@ useShortcutListener(async (_: string) => {
     windowState.show()
     BrowserWindowApi.focus()
     await delay(500)
-    webView.value!.focus()
-    await delay(200)
-    // language=JavaScript
-    webView.value?.executeJavaScript(`(function() {
-        let promptTextarea = document.querySelector('#prompt-textarea')
-        if (promptTextarea) {
-            promptTextarea.focus()
-        }
-    })()`)
+    webviewRef.value?.focus()
   }
 })
 </script>
@@ -121,7 +72,7 @@ useShortcutListener(async (_: string) => {
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
   <div class="wrapper" :style="{ transform: `translateX(${windowState.animationX.value}vw)` }">
-    <webview ref="webView" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
+    <WebviewComponent ref="webviewRef" :url="platformUrl" />
     <div class="background" />
     <Tip />
   </div>
@@ -145,12 +96,6 @@ $padding: 16px;
   padding: 16px;
   background: rgba(0, 0, 0, 0.3);
 
-  webview {
-    width: calc(100% - 16px * 2);
-    height: calc(100% - 16px * 2);
-    z-index: 99;
-    position: absolute;
-  }
 }
 
 @media (prefers-color-scheme: dark) {

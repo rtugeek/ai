@@ -3,11 +3,11 @@ import { useStorage } from '@vueuse/core'
 import { WidgetApi } from '@widget-js/core'
 import { useWidgetParams } from '@widget-js/vue3'
 import AiPlatformRadioGroup from '@/components/AiPlatformRadioGroup.vue'
-import { useConfig } from '@/composition/useConfig'
+import { useConfigStore } from '@/store/useConfigStore'
 
 const widgetParams = useWidgetParams()
 const showTip = useStorage('tip-5', true)
-const { config } = useConfig()
+const { config } = useConfigStore()
 function closeTip() {
   showTip.value = false
 }

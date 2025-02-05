@@ -1,10 +1,11 @@
 import { useStorage } from '@vueuse/core'
 import { computed } from 'vue'
+import { defineStore } from 'pinia'
 import type { AiConfig } from '@/widgets/ai/AiConfig'
 import { DEFAULT_CONFIG } from '@/widgets/ai/AiConfig'
 
 export type WindowPosition = 'left' | 'right'
-export function useConfig() {
+export const useConfigStore = defineStore('config', () => {
   const config = useStorage<AiConfig>('config', DEFAULT_CONFIG)
   const position = useStorage<WindowPosition>('window-position', 'right')
   const proxyRule = computed(() => {
@@ -32,4 +33,4 @@ export function useConfig() {
     }
   })
   return { config, position, hasProxyRule, proxyRule, platformUrl }
-}
+})

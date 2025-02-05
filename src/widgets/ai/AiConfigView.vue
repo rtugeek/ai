@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { WidgetBindShortcutField, WidgetConfigOption, useWidgetParams } from '@widget-js/vue3'
-import { useConfig } from '@/composition/useConfig'
+import { storeToRefs } from 'pinia'
+import { useConfigStore } from '@/store/useConfigStore'
 import AiPlatformRadioGroup from '@/components/AiPlatformRadioGroup.vue'
 
 const widgetParams = useWidgetParams()
-const { config } = useConfig()
+const configStore = useConfigStore()
+const { config, position } = storeToRefs(configStore)
+
 const widgetConfigOption = reactive(new WidgetConfigOption({
   custom: true,
 }))
@@ -49,6 +52,12 @@ function save() {
         </el-form-item>
         <el-form-item label="代理端口">
           <el-input v-model="config.port" style="width: 50px" placeholder="如：7890" />
+        </el-form-item>
+        <el-form-item label="窗口位置">
+          <el-radio-group v-model="position">
+            <el-radio value="left" label="左侧" />
+            <el-radio value="right" label="右侧" />
+          </el-radio-group>
         </el-form-item>
       </el-form>
     </template>
