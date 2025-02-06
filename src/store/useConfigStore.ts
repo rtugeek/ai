@@ -1,12 +1,14 @@
 import { useStorage } from '@vueuse/core'
 import { computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { AiConfig } from '@/widgets/ai/AiConfig'
+import type { AIPlatform, AiConfig } from '@/widgets/ai/AiConfig'
 import { DEFAULT_CONFIG } from '@/widgets/ai/AiConfig'
+import { AIUtils } from '@/utils/AIUtils'
 
 export type WindowPosition = 'left' | 'right'
 export const useConfigStore = defineStore('config', () => {
   const config = useStorage<AiConfig>('config', DEFAULT_CONFIG)
+  const platforms = useStorage<AIPlatform[]>('platforms', ['deepseek'])
   const position = useStorage<WindowPosition>('window-position', 'right')
   const proxyRule = computed(() => {
     if (hasProxyRule.value) {
@@ -21,16 +23,8 @@ export const useConfigStore = defineStore('config', () => {
     return !!(config.value.protocol && config.value.host && config.value.port)
   })
 
-  const platformUrl = computed(() => {
-    if (config.value.platform === 'chatgpt') {
-      return 'https://chat.openai.com'
-    }
-    else if (config.value.platform === 'gemini') {
-      return 'https://gemini.google.com'
-    }
-    else {
-      return 'https://chat.deepseek.com/'
-    }
+  const platformUrlList = computed(() => {
+    return platforms.value.map(platform => AIUtils.getUrl(platform))
   })
-  return { config, position, hasProxyRule, proxyRule, platformUrl }
+  return { config, position, hasProxyRule, platforms, proxyRule, platformUrlList }
 })

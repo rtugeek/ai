@@ -1,30 +1,33 @@
 import { computed, ref, watch } from 'vue'
 import { BrowserWindowApi } from '@widget-js/core'
-import { TransitionPresets, useStorage, useTransition } from '@vueuse/core'
+import { TransitionPresets, useStorage, useTransition, watchArray } from '@vueuse/core'
 import type { WindowPosition } from '@/store/useConfigStore'
+import type { AIPlatform } from '@/widgets/ai/AiConfig'
 
 export function useWindowState() {
   const x = ref(100)
   const position = useStorage<WindowPosition>('window-position', 'right')
-  const windowWidth = screen.width / 3
-  async function setup() {
-    await BrowserWindowApi.setup({
-      width: windowWidth,
-      height: screen.availHeight,
-      resizable: false,
-      alwaysOnTop: true,
-    })
-    setPosition()
-  }
+  const platforms = useStorage<AIPlatform[]>('platforms', ['deepseek'])
+  const windowWidth = computed(() => {
+    if (platforms.value.length == 1) {
+      return screen.width / 3
+    }
+    else {
+      return screen.width / 2
+    }
+  })
 
-  function setPosition() {
-    let x = screen.availWidth - windowWidth
+  async function setup() {
+    BrowserWindowApi.setResizable(false)
+    let x = screen.availWidth - windowWidth.value
     if (position.value == 'left') {
       x = 0
     }
-    BrowserWindowApi.setPosition({
+    BrowserWindowApi.setBounds({
       x,
       y: 0,
+      width: windowWidth.value,
+      height: screen.availHeight,
     })
   }
 
@@ -51,12 +54,13 @@ export function useWindowState() {
     }
   })
 
-  watch(position, () => {
-    setPosition()
+  watchArray([position, windowWidth], () => {
+    setup()
   })
 
   function show() {
     BrowserWindowApi.show()
+    BrowserWindowApi.setAlwaysOnTop(true)
     x.value = 0
   }
 

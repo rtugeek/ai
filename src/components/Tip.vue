@@ -2,12 +2,14 @@
 import { useStorage } from '@vueuse/core'
 import { WidgetApi } from '@widget-js/core'
 import { useWidgetParams } from '@widget-js/vue3'
+import { storeToRefs } from 'pinia'
 import AiPlatformRadioGroup from '@/components/AiPlatformRadioGroup.vue'
 import { useConfigStore } from '@/store/useConfigStore'
 
 const widgetParams = useWidgetParams()
 const showTip = useStorage('tip-5', true)
-const { config } = useConfigStore()
+const configStore = useConfigStore()
+const { platforms } = storeToRefs(configStore)
 function closeTip() {
   showTip.value = false
 }
@@ -27,7 +29,7 @@ function openSetting() {
       <li>科学上网IP需要避开香港、澳门等不能使用的区域</li>
     </ol>
     <el-form-item label="选择AI平台">
-      <AiPlatformRadioGroup v-model="config.platform" />
+      <AiPlatformRadioGroup v-model="platforms" />
     </el-form-item>
     <div class="button">
       <el-button type="warning" @click="openSetting">

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { BrowserWindowApi, ShortcutApi } from '@widget-js/core'
+import { BrowserWindowApi, ShortcutApi, delay } from '@widget-js/core'
 import { useShortcutListener } from '@widget-js/vue3'
 import { nextTick, onMounted, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
@@ -7,16 +7,15 @@ import NProgress from 'nprogress'
 import consola from 'consola'
 import { storeToRefs } from 'pinia'
 import Tip from '@/components/Tip.vue'
-import { delay } from '@/utils/TimeUtils'
 import { useConfigStore } from '@/store/useConfigStore'
 import { useWindowState } from '@/composition/useWindowState'
-import WebviewComponent from '@/components/WebviewComponent.vue'
+import DuelWebview from '@/components/DuelWebview.vue'
+import BaseWebview from '@/components/BaseWebview.vue'
 
 NProgress.start()
 const shortcut = ref<string>('')
-const webviewRef = ref<InstanceType<typeof WebviewComponent>>()
 const configStore = useConfigStore()
-const { config, platformUrl, proxyRule } = storeToRefs(configStore)
+const { config, platformUrlList, proxyRule } = storeToRefs(configStore)
 async function updateShortcut() {
   ShortcutApi.unregister(shortcut.value)
   shortcut.value = config.value.shortcut
@@ -28,7 +27,7 @@ watch(config, async () => {
   }
 }, { deep: true })
 
-watch(platformUrl, () => {
+watch(platformUrlList, () => {
   window.location.reload()
 })
 
@@ -49,7 +48,6 @@ onMounted(async () => {
   await nextTick()
   windowState.show()
   updateShortcut()
-  await delay(500)
   if (proxyRule.value) {
     await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
   }
@@ -64,7 +62,7 @@ useShortcutListener(async (_: string) => {
     windowState.show()
     BrowserWindowApi.focus()
     await delay(500)
-    webviewRef.value?.focus()
+    // webviewRef.value?.focus()
   }
 })
 </script>
@@ -72,7 +70,8 @@ useShortcutListener(async (_: string) => {
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
   <div class="wrapper" :style="{ transform: `translateX(${windowState.animationX.value}vw)` }">
-    <WebviewComponent ref="webviewRef" :url="platformUrl" />
+    <BaseWebview v-if="platformUrlList.length == 1" class="single" :url="platformUrlList[0]" />
+    <DuelWebview v-if="platformUrlList.length == 2" :url1="platformUrlList[0]" :url2="platformUrlList[1]" />
     <div class="background" />
     <Tip />
   </div>
@@ -85,7 +84,9 @@ $padding: 16px;
   position: absolute;
   width: calc(100% - 16px * 2);
   height: calc(100% - 16px * 2);
-  background: white;
+  .background {
+    border-radius: 4px;
+  }
 }
 
 .wrapper {
@@ -95,13 +96,16 @@ $padding: 16px;
   position: relative;
   padding: 16px;
   background: rgba(0, 0, 0, 0.3);
-
 }
 
-@media (prefers-color-scheme: dark) {
-  .background {
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.49);
+.single{
+  width: calc(100% - 16px * 2);
+  height: calc(100% - 16px * 2);
+  z-index: 99;
+  position: absolute;
+  webview {
+    width: 100px;
+    height: 100%;
   }
 }
 </style>

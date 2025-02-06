@@ -1,32 +1,19 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { WidgetBindShortcutField, WidgetConfigOption, useWidgetParams } from '@widget-js/vue3'
+import { WidgetBindShortcutField } from '@widget-js/vue3'
 import { storeToRefs } from 'pinia'
 import { useConfigStore } from '@/store/useConfigStore'
 import AiPlatformRadioGroup from '@/components/AiPlatformRadioGroup.vue'
 
-const widgetParams = useWidgetParams()
 const configStore = useConfigStore()
-const { config, position } = storeToRefs(configStore)
-
-const widgetConfigOption = reactive(new WidgetConfigOption({
-  custom: true,
-}))
-function save() {
-  window.close()
-}
+const { config, position, platforms } = storeToRefs(configStore)
 </script>
 
 <template>
-  <widget-edit-dialog
-    :widget-params="widgetParams"
-    :option="widgetConfigOption"
-    @confirm="save"
-  >
-    <template #custom>
-      <el-form :label-width="90" label-position="left">
-        <el-form-item label="AI平台">
-          <AiPlatformRadioGroup v-model="config.platform" />
+  <widget-base-dialog title="组件设置">
+    <template #body>
+      <el-form :label-width="140" label-position="left">
+        <el-form-item label="AI平台（可选2个）">
+          <AiPlatformRadioGroup v-model="platforms" :max-count="2" />
         </el-form-item>
         <el-form-item label="呼出快捷键">
           <WidgetBindShortcutField v-model="config.shortcut" />
@@ -61,7 +48,7 @@ function save() {
         </el-form-item>
       </el-form>
     </template>
-  </widget-edit-dialog>
+  </widget-base-dialog>
 </template>
 
 <style scoped>

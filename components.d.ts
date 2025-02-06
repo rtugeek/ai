@@ -8,15 +8,17 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AiPlatformRadioGroup: typeof import('./src/components/AiPlatformRadioGroup.vue')['default']
+    BaseWebview: typeof import('./src/components/BaseWebview.vue')['default']
+    DuelWebview: typeof import('./src/components/DuelWebview.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
+    PromptInput: typeof import('./src/components/PromptInput.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Tip: typeof import('./src/components/Tip.vue')['default']
-    WebviewComponent: typeof import('./src/components/WebviewComponent.vue')['default']
   }
 }

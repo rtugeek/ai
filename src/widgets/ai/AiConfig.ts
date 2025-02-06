@@ -1,5 +1,5 @@
 export type ProxyProtocol = 'http' | 'https' | 'sock5' | 'sock4'
-export type AIPlatform = 'chatgpt' | 'gemini' | 'deepseek'
+export type AIPlatform = 'deepseek' | 'chatgpt' | 'gemini'
 export interface AiConfig {
   proxy?: string
   shortcut: string
