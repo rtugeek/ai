@@ -56,7 +56,6 @@ onMounted(async () => {
 useShortcutListener(async (_: string) => {
   if (windowState.isShowing.value) {
     windowState.hide()
-    BrowserWindowApi.blur()
   }
   else {
     windowState.show()

@@ -48,8 +48,9 @@ export function useWindowState() {
     return x.value == 0
   })
 
-  watch(animationX, () => {
+  watch(animationX, async () => {
     if (animationX.value == toX.value) {
+      await BrowserWindowApi.blur()
       BrowserWindowApi.hide()
     }
   })
@@ -60,11 +61,11 @@ export function useWindowState() {
 
   function show() {
     BrowserWindowApi.show()
-    BrowserWindowApi.setAlwaysOnTop(true)
     x.value = 0
   }
 
   function hide() {
+    BrowserWindowApi.focus()
     x.value = toX.value
   }
 
