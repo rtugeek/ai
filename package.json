@@ -19,7 +19,7 @@
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
     "@vueuse/core": "^9.4.0",
-    "@widget-js/core": "^24.1.1-beta.44",
+    "@widget-js/core": "^24.1.1-beta.47",
     "@widget-js/vue3": "^24.1.1-beta.48",
     "@widget-js/webview-utils": "^1.0.2",
     "consola": "^3.2.3",

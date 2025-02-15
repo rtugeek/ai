@@ -52,7 +52,8 @@
       "backgroundThrottling": false,
       "previewImage": "/preview_ai.png",
       "categories": [
-        "productivity"
+        "productivity",
+        "ai"
       ],
       "supportDeployMode": 65536,
       "configPagePath": "/widget/config/chatgpt?frame=true&transparent=false",

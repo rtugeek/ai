@@ -8,7 +8,7 @@ const AiWidget = new BackgroundWidget({
   description: { 'zh-CN': '一键呼出ChatGPT、Gemini、DeepSeek', 'en-US': 'Call ChatGPT, Gemini, DeepSeek with shortcut' },
   keywords: [WidgetKeyword.RECOMMEND],
   lang: 'zh-CN',
-  categories: ['productivity'],
+  categories: ['productivity', 'ai'],
   previewImage: '/preview_ai.png',
   maxHeight: 15,
   socialLinks: [

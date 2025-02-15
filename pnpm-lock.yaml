@@ -12,8 +12,8 @@ dependencies:
     specifier: ^9.4.0
     version: 9.13.0(vue@3.4.27)
   '@widget-js/core':
-    specifier: ^24.1.1-beta.44
-    version: 24.1.1-beta.44
+    specifier: ^24.1.1-beta.47
+    version: 24.1.1-beta.47
   '@widget-js/vue3':
     specifier: ^24.1.1-beta.48
     version: 24.1.1-beta.48(nprogress@0.2.0)(vue@3.4.27)
@@ -3116,6 +3116,16 @@ packages:
 
   /@widget-js/core@24.1.1-beta.44:
     resolution: {integrity: sha512-hsdS48bao2gebvyMfFagXoo3WO2VIZ3D6GeAUgR9zVgCTr5TufiJiPfnpSvBctgoOwCJ3vL77uBkT2NAPN6jAQ==}
+    dependencies:
+      '@types/css-tree': 2.3.8
+      css-tree: 2.3.1
+      localforage: 1.10.0
+      lodash: 4.17.21
+      path-normalize: 6.0.13
+    dev: false
+
+  /@widget-js/core@24.1.1-beta.47:
+    resolution: {integrity: sha512-SpsyX9dCrA4IfwGyE3O4pa5jGwRojq0QcBSfbzpt2zGoxGJ8ZDZa9eaW4BBqkt3Gb9+SCXm7Puhwn4alknLfvQ==}
     dependencies:
       '@types/css-tree': 2.3.8
       css-tree: 2.3.1
