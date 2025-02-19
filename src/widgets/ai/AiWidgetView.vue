@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { BrowserWindowApi, ShortcutApi, delay } from '@widget-js/core'
+import { BrowserWindowApi, ShortcutApi, SystemApi, delay } from '@widget-js/core'
 import { useShortcutListener } from '@widget-js/vue3'
 import { nextTick, onMounted, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
@@ -50,6 +50,13 @@ onMounted(async () => {
   updateShortcut()
   if (proxyRule.value) {
     await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
+  }
+
+  const systemUptime = await SystemApi.getUptime()
+  if (systemUptime < 5 * 60) {
+    // 如果是刚开机 自动隐藏
+    await delay(3000)
+    windowState.hide()
   }
 })
 
