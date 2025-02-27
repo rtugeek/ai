@@ -16,6 +16,10 @@ const AiWidget = new BackgroundWidget({
       name: 'github',
       link: 'https://github.com/rtugeek/ai',
     },
+    {
+      name: 'bilibili',
+      link: 'https://www.bilibili.com/video/BV1B29AY2ELn/',
+    },
   ],
   webviewTag: true,
   browserWindowOptions: {
