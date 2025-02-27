@@ -1,20 +1,25 @@
 import { computed, ref, watch } from 'vue'
 import { BrowserWindowApi } from '@widget-js/core'
 import { TransitionPresets, useStorage, useTransition, watchArray } from '@vueuse/core'
-import type { WindowPosition } from '@/store/useConfigStore'
-import type { AIPlatform } from '@/widgets/ai/AiConfig'
+import { storeToRefs } from 'pinia'
+import { useConfigStore } from '@/store/useConfigStore'
+import type { AiPlatform } from '@/utils/AiUtils'
 
 export function useWindowState() {
   const x = ref(100)
-  const position = useStorage<WindowPosition>('window-position', 'right')
-  const platforms = useStorage<AIPlatform[]>('platforms', ['deepseek'])
+  const platforms = useStorage<AiPlatform[]>('platforms', ['deepseek'])
+  const configStore = useConfigStore()
+  const { windowWidthRatio, position, alwaysTop } = storeToRefs(configStore)
   const windowWidth = computed(() => {
     if (platforms.value.length == 1) {
-      return screen.width / 3
+      return screen.width * windowWidthRatio.value
     }
     else {
-      return screen.width / 2
+      return screen.width * windowWidthRatio.value
     }
+  })
+  watch(alwaysTop, () => {
+    BrowserWindowApi.setAlwaysOnTop(alwaysTop.value)
   })
 
   async function setup() {
@@ -61,6 +66,7 @@ export function useWindowState() {
 
   function show() {
     BrowserWindowApi.show()
+    BrowserWindowApi.setAlwaysOnTop(alwaysTop.value)
     x.value = 0
   }
 

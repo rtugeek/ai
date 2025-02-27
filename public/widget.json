@@ -28,8 +28,8 @@
         "en-US": "AI Assistant"
       },
       "description": {
-        "zh-CN": "一键呼出ChatGPT、Gemini、DeepSeek",
-        "en-US": "Call ChatGPT, Gemini, DeepSeek with shortcut"
+        "zh-CN": "一键呼出DeepSeek、Kimi、豆包等AI服务",
+        "en-US": "Call DeepSeek, ChatGPT, Gemini with shortcut"
       },
       "keywords": [
         "recommend"

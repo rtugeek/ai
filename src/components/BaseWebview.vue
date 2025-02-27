@@ -1,15 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { WebviewTag } from '@widget-js/webview-utils'
-import { useIntervalFn, watchOnce } from '@vueuse/core'
+import { useIntervalFn, useStorage, watchDebounced, watchOnce } from '@vueuse/core'
 import NProgress from 'nprogress'
 import { ElMessage } from 'element-plus'
+import AiSelect from '@/components/AiSelect.vue'
+import type { AiPlatform } from '@/utils/AiUtils'
+import { AiUtils } from '@/utils/AiUtils'
 
-const props = defineProps<{
-  url: string
-}>()
+const props = withDefaults(defineProps<{
+  index: number
+}>(), {
+  index: 0,
+})
 const webviewRef = ref<WebviewTag>()
 
+const aiService = useStorage<AiPlatform>(`ai-web-page-${props.index}`, AiUtils.get(props.index).value)
+const aiUrl = computed(() => {
+  return AiUtils.getUrl(aiService.value)
+})
 const loadingChecker = useIntervalFn(() => {
   if (webviewRef.value) {
     if (!webviewRef.value.isLoading()) {
@@ -24,13 +33,14 @@ defineExpose({
   getURL: () => webviewRef.value!.getURL(),
 })
 
+watchDebounced(aiService, () => {
+  webviewRef.value!.loadURL(aiUrl.value)
+}, { debounce: 500 })
 let firstLoad = true
 watchOnce(webviewRef, () => {
   webviewRef.value!.addEventListener('dom-ready', () => {
     if (firstLoad) {
-      if (props.url) {
-        webviewRef.value!.loadURL(props.url)
-      }
+      webviewRef.value!.loadURL(aiUrl.value)
       firstLoad = false
     }
     // language=css
@@ -89,11 +99,30 @@ watchOnce(webviewRef, () => {
 </script>
 
 <template>
-  <webview ref="webviewRef" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
+  <div style="position: relative">
+    <webview ref="webviewRef" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
+    <AiSelect v-model="aiService" class="ai-selector" />
+  </div>
 </template>
 
 <style scoped lang="scss">
+.ai-selector{
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 150px;
+  z-index: 999;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  &:hover{
+    opacity: 1;
+  }
+}
 webview{
+  width: 100%;
+  border-radius: 6px;
+  height: 100%;
+  overflow: hidden;
   background-color: white;
 }
 

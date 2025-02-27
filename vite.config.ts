@@ -13,13 +13,6 @@ export default defineConfig({
   base: '/ai',
   build: {
     target: 'es6',
-    rollupOptions: {
-      output: {
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`,
-      },
-    },
   },
   plugins: [
     vue({

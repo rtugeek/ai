@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AIPlatform } from '@/widgets/ai/AiConfig'
+import type { AiPlatform } from '@/utils/AiUtils'
 
 const props = defineProps({
   maxCount: {
@@ -8,7 +8,7 @@ const props = defineProps({
   },
 })
 const model = defineModel({ default: ['deepseek'] })
-function onPlatformClick(platform: AIPlatform) {
+function onPlatformClick(platform: AiPlatform) {
   if (props.maxCount === 1) {
     model.value = [platform]
   }

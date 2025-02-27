@@ -2,19 +2,15 @@
 import { WidgetBindShortcutField } from '@widget-js/vue3'
 import { storeToRefs } from 'pinia'
 import { useConfigStore } from '@/store/useConfigStore'
-import AiPlatformRadioGroup from '@/components/AiPlatformRadioGroup.vue'
 
 const configStore = useConfigStore()
-const { config, position, platforms } = storeToRefs(configStore)
+const { config, position, windowWidthRatio } = storeToRefs(configStore)
 </script>
 
 <template>
   <widget-base-dialog title="组件设置">
     <template #body>
       <el-form :label-width="140" label-position="left">
-        <el-form-item label="AI平台（可选2个）">
-          <AiPlatformRadioGroup v-model="platforms" :max-count="2" />
-        </el-form-item>
         <el-form-item label="呼出快捷键">
           <WidgetBindShortcutField v-model="config.shortcut" />
         </el-form-item>
@@ -44,6 +40,14 @@ const { config, position, platforms } = storeToRefs(configStore)
           <el-radio-group v-model="position">
             <el-radio value="left" label="左侧" />
             <el-radio value="right" label="右侧" />
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="窗口大小">
+          <el-radio-group v-model="windowWidthRatio">
+            <el-radio :value="0.2" label="20%" />
+            <el-radio :value="0.3" label="30%" />
+            <el-radio :value="0.4" label="40%" />
+            <el-radio :value="0.5" label="50%" />
           </el-radio-group>
         </el-form-item>
       </el-form>

@@ -9,8 +9,7 @@ import { storeToRefs } from 'pinia'
 import Tip from '@/components/Tip.vue'
 import { useConfigStore } from '@/store/useConfigStore'
 import { useWindowState } from '@/composition/useWindowState'
-import DuelWebview from '@/components/DuelWebview.vue'
-import BaseWebview from '@/components/BaseWebview.vue'
+import SettingHeader from '@/widgets/ai/component/SettingHeader.vue'
 
 NProgress.start()
 const shortcut = ref<string>('')
@@ -68,7 +67,6 @@ useShortcutListener(async (_: string) => {
     windowState.show()
     BrowserWindowApi.focus()
     await delay(500)
-    // webviewRef.value?.focus()
   }
 })
 </script>
@@ -76,20 +74,23 @@ useShortcutListener(async (_: string) => {
 <template>
   <!--    <chatgpt-search-widget></chatgpt-search-widget> -->
   <div class="wrapper" :style="{ transform: `translateX(${windowState.animationX.value}vw)` }">
-    <BaseWebview v-if="platformUrlList.length == 1" class="single" :url="platformUrlList[0]" />
-    <DuelWebview v-if="platformUrlList.length == 2" :url1="platformUrlList[0]" :url2="platformUrlList[1]" />
-    <div class="background" />
+    <!--    <DuelWebview v-if="platformUrlList.length == 2" :url1="platformUrlList[0]" :url2="platformUrlList[1]" /> -->
+    <SettingHeader />
+    <div class="grid" :class="[`size-${configStore.pageCount}`]">
+      <BaseWebview v-for="index in configStore.pageCount" :key="index" :index="index" class="web-page" />
+    </div>
     <Tip />
+    <div class="background" />
   </div>
 </template>
 
 <style scoped lang="scss">
-$padding: 16px;
+$padding: 12px;
 .background {
   display: block;
   position: absolute;
-  width: calc(100% - 16px * 2);
-  height: calc(100% - 16px * 2);
+  width: calc(100% - $padding * 2);
+  height: calc(100% - $padding * 2);
   .background {
     border-radius: 4px;
   }
@@ -99,19 +100,37 @@ $padding: 16px;
   border-radius: 8px 0 0 8px;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
   position: relative;
-  padding: 16px;
+  padding: $padding;
   background: rgba(0, 0, 0, 0.3);
 }
 
-.single{
-  width: calc(100% - 16px * 2);
-  height: calc(100% - 16px * 2);
-  z-index: 99;
-  position: absolute;
-  webview {
-    width: 100px;
-    height: 100%;
+.grid{
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: $padding;
+  grid-row-gap: $padding;
+  height: 100%;
+  width: 100%;
+  &.size-2{
+    grid-template-rows: repeat(2, 1fr);
   }
+  &.size-4{
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+
+.web-page{
+  width: 100%;
+  flex: 1;
+  background-color: blue;
+  border-radius: 6px;
+  z-index: 2;
 }
 </style>

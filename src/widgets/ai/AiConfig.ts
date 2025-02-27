@@ -1,11 +1,13 @@
+import type { AiPlatform } from '@/utils/AiUtils'
+
 export type ProxyProtocol = 'http' | 'https' | 'sock5' | 'sock4'
-export type AIPlatform = 'deepseek' | 'chatgpt' | 'gemini'
+
 export interface AiConfig {
   proxy?: string
   shortcut: string
   protocol?: ProxyProtocol
   port?: string
-  platform: AIPlatform
+  platform: AiPlatform
   host?: string
 }
 
