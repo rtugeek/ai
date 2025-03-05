@@ -3,9 +3,10 @@ import Qwen from '@/assets/qwen.png'
 import DeepSeek from '@/assets/deepseek.png'
 import Gemini from '@/assets/google-gemini-icon.png'
 import ChatGpt from '@/assets/chatgpt-icon.png'
+import YuanBao from '@/assets/yuanbao.png'
 import Kimi from '@/assets/kimi.png'
 
-export type AiPlatform = 'deepseek' | 'chatgpt' | 'gemini' | 'kimi' | 'qwen' | 'dou_bao'
+export type AiPlatform = 'deepseek' | 'chatgpt' | 'gemini' | 'kimi' | 'qwen' | 'dou_bao' | 'yuan_bao'
 export interface AiService {
   name: string
   value: AiPlatform
@@ -34,6 +35,11 @@ export class AiUtils {
     logo: DouBao,
     value: 'dou_bao',
     url: 'https://www.doubao.com/chat/',
+  }, {
+    name: '元宝',
+    logo: YuanBao,
+    value: 'yuan_bao',
+    url: 'https://yuanbao.tencent.com/chat/',
   }]
 
   static readonly usAiServices: AiService[] = [{
