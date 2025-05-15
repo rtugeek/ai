@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { delay } from '@widget-js/core'
+import { driver } from 'driver.js'
 import type { AiPlatform } from '@/utils/AiUtils'
 import { AiUtils } from '@/utils/AiUtils'
 import 'driver.js/dist/driver.css'
-import { delay } from '@widget-js/core'
-import { driver } from 'driver.js'
-import { storeToRefs } from 'pinia'
 import { useConfigStore } from '@/store/useConfigStore'
 
 const model = defineModel<AiPlatform>()
@@ -31,10 +31,10 @@ async function showTip() {
         driverObj.destroy()
       },
       steps: [{
-        element: '#ai-select',
+        element: '.ai-select',
         popover: {
           title: '选择您的AI服务',
-          description: '支持切换DeepSeek、Kimi、豆包等国内主流AI服务',
+          description: '支持切换 DeepSeek、Kimi、豆包 等国内主流AI服务',
         },
       }],
     })
@@ -53,7 +53,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <el-select id="ai-select" v-model="model" placeholder="选择AI平台">
+  <el-select v-model="model" class="ai-select" placeholder="选择AI平台">
     <template #label>
       <div class="flex items-center gap-2">
         <img :src="selectedAiService.logo" class="logo" alt="ai.name"> {{ selectedAiService.name }}

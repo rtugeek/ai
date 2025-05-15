@@ -100,7 +100,7 @@ watchOnce(webviewRef, () => {
 
 <template>
   <div style="position: relative">
-    <webview ref="webviewRef" allowpopups enableblinkfeatures="PreciseMemoryInfo, CSSVariables" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
+    <webview ref="webviewRef" allowpopups enableblinkfeatures="PreciseMemoryInfo, CSSVariables" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
     <AiSelect v-model="aiService" class="ai-selector" />
   </div>
 </template>
