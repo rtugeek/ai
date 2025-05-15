@@ -100,7 +100,7 @@ watchOnce(webviewRef, () => {
 
 <template>
   <div style="position: relative">
-    <webview ref="webviewRef" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
+    <webview ref="webviewRef" allowpopups enableblinkfeatures="PreciseMemoryInfo, CSSVariables" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari" src="localhost" partition="persist:cn.widgetjs.widgets.ai.assistant" />
     <AiSelect v-model="aiService" class="ai-selector" />
   </div>
 </template>
@@ -108,12 +108,13 @@ watchOnce(webviewRef, () => {
 <style scoped lang="scss">
 .ai-selector{
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 8px;
+  transform: translateX(-50%);
+  left: 50%;
   width: 150px;
   z-index: 999;
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
+  opacity: 0.8;
+  transition: opacity 0.4s ease;
   &:hover{
     opacity: 1;
   }
