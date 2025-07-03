@@ -1,14 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root{
   --footer-height: 36px
 }
 body *, page view {
-    box-sizing: border-box;
-    flex-shrink: 0;
-  user-select: none;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 body {

@@ -13,5 +13,5 @@ export interface AiConfig {
 
 export const DEFAULT_CONFIG: AiConfig = {
   shortcut: 'Meta+Alt+C',
-  platform: 'deepseek',
+  platform: 'chatgpt',
 }

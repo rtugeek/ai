@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { BrowserWindowApi, ShortcutApi, SystemApi, delay } from '@widget-js/core'
-import { useShortcutListener } from '@widget-js/vue3'
+import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3'
 import { nextTick, onMounted, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import NProgress from 'nprogress'
@@ -59,7 +59,7 @@ onMounted(async () => {
   }
 })
 
-useShortcutListener(async (_: string) => {
+async function toggle() {
   if (windowState.isShowing.value) {
     windowState.hide()
   }
@@ -67,6 +67,15 @@ useShortcutListener(async (_: string) => {
     windowState.show()
     BrowserWindowApi.focus()
     await delay(500)
+  }
+}
+useShortcutListener(async (_: string) => {
+  toggle()
+})
+
+useAppBroadcast(['channel::cn.widgetjs.core.tray.click'], async (event) => {
+  if (event.event == 'channel::cn.widgetjs.core.tray.click') {
+    toggle()
   }
 })
 </script>
@@ -77,7 +86,7 @@ useShortcutListener(async (_: string) => {
     <!--    <DuelWebview v-if="platformUrlList.length == 2" :url1="platformUrlList[0]" :url2="platformUrlList[1]" /> -->
     <SettingHeader />
     <div class="grid" :class="[`size-${configStore.pageCount}`]">
-      <BaseWebview v-for="index in configStore.pageCount" :key="index" :index="index" class="web-page" />
+      <BaseWebview v-for="index in configStore.pageCount" :key="index - 1" :index="index - 1" class="web-page" />
     </div>
     <Tip />
     <div class="background" />

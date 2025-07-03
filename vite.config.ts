@@ -9,29 +9,36 @@ import UnoCSS from 'unocss/vite'
 
 // https://vitejs.dev/config/
 
-export default defineConfig({
-  base: '/ai',
-  build: {
-    target: 'es6',
-  },
-  plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: tag => ['webview'].includes(tag),
+export default defineConfig((config) => {
+  const mode = config.mode
+  let base = '/ai'
+  if (mode == 'offline') {
+    base = './'
+  }
+  return {
+    base: base,
+    build: {
+      target: 'es6',
+    },
+    plugins: [
+      vue({
+        template: {
+          compilerOptions: {
+            isCustomElement: tag => ['webview'].includes(tag),
+          },
         },
-      },
-    }),
-    UnoCSS(),
-    ViteWidget({ generateFullNamePackage: true }),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    }),
-  ],
-  resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
-  },
+      }),
+      UnoCSS(),
+      ViteWidget({ generateFullNamePackage: true }),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
+    ],
+    resolve: {
+      alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+    },
+  }
 })

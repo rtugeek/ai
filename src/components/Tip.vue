@@ -2,11 +2,13 @@
 import { WidgetApi } from '@widget-js/core'
 import { useWidgetParams } from '@widget-js/vue3'
 import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
 import { useConfigStore } from '@/store/useConfigStore'
 
 const widgetParams = useWidgetParams()
 const configStore = useConfigStore()
 const { tipProgress } = storeToRefs(configStore)
+const { t } = useI18n()
 function closeTip() {
   tipProgress.value = 1
 }
@@ -18,18 +20,18 @@ function openSetting() {
 
 <template>
   <div v-if="tipProgress == 0" class="tips">
-    <h3>使用说明</h3>
+    <h3>{{ t('tipTitle') }}</h3>
     <ol>
-      <li>默认快捷键 <b class="blue">Win + Alt + C</b></li>
-      <li><b>ChatGPT</b>、<b>Gemini</b>需要科学上网才能正常使用</li>
-      <li>科学上网IP需要避开香港、澳门等不能使用的区域</li>
+      <li>{{ t('tipShortcut') }} <b class="blue">Win + Alt + C</b></li>
+      <li v-html="t('tipAbroad')" />
+      <li>{{ t('tipRegion') }}</li>
     </ol>
     <div class="button">
       <el-button type="warning" @click="openSetting">
-        设置页面
+        {{ t('tipSetting') }}
       </el-button>
       <el-button type="primary" @click="closeTip">
-        知道了
+        {{ t('know') }}
       </el-button>
     </div>
   </div>

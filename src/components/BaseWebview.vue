@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<{
 })
 const webviewRef = ref<WebviewTag>()
 
-const aiService = useStorage<AiPlatform>(`ai-web-page-${props.index}`, AiUtils.get(props.index).value)
+const aiService = useStorage<AiPlatform>(`ai-${props.index}`, AiUtils.get(props.index).value)
 const aiUrl = computed(() => {
   return AiUtils.getUrl(aiService.value)
 })

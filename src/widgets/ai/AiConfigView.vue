@@ -1,53 +1,67 @@
 <script lang="ts" setup>
 import { WidgetBindShortcutField } from '@widget-js/vue3'
 import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
 import { useConfigStore } from '@/store/useConfigStore'
 
 const configStore = useConfigStore()
 const { config, position, windowWidthRatio } = storeToRefs(configStore)
+const { t } = useI18n()
 </script>
 
 <template>
-  <widget-base-dialog title="组件设置">
+  <widget-base-dialog :title="t('configTitle')">
     <template #body>
       <el-form :label-width="140" label-position="left">
-        <el-form-item label="呼出快捷键">
+        <el-form-item :label="t('shortcut')">
           <WidgetBindShortcutField v-model="config.shortcut" />
         </el-form-item>
-        <el-form-item label="代理协议">
+        <el-form-item :label="t('protocol')">
           <el-radio-group v-model="config.protocol">
             <el-radio label="http">
-              HTTP
+              {{ t('http') }}
             </el-radio>
             <el-radio label="https">
-              HTTPS
+              {{ t('https') }}
             </el-radio>
             <el-radio label="sock4">
-              SOCK4
+              {{ t('sock4') }}
             </el-radio>
             <el-radio label="sock5">
-              SOCK5
+              {{ t('sock5') }}
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="代理服务器">
-          <el-input v-model="config.host" class="flex-1" placeholder="如：127.0.0.1" />
+        <el-form-item :label="t('host')">
+          <el-input v-model="config.host" class="flex-1" :placeholder="`${t('host')} 127.0.0.1`" />
         </el-form-item>
-        <el-form-item label="代理端口">
-          <el-input v-model="config.port" style="width: 50px" placeholder="如：7890" />
+        <el-form-item :label="t('port')">
+          <el-input v-model="config.port" style="width: 50px" :placeholder="`${t('port')} 7890`" />
         </el-form-item>
-        <el-form-item label="窗口位置">
+        <el-form-item :label="t('position')">
           <el-radio-group v-model="position">
-            <el-radio value="left" label="左侧" />
-            <el-radio value="right" label="右侧" />
+            <el-radio value="left">
+              {{ t('left') }}
+            </el-radio>
+            <el-radio value="right">
+              {{ t('right') }}
+            </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="窗口大小">
+        <el-form-item :label="t('windowSize')">
           <el-radio-group v-model="windowWidthRatio">
-            <el-radio :value="0.2" label="20%" />
-            <el-radio :value="0.3" label="30%" />
-            <el-radio :value="0.4" label="40%" />
-            <el-radio :value="0.5" label="50%" />
+            <el-radio :value="0.2">
+              {{ t('percent20') }}
+            </el-radio>
+            <el-radio :value="0.3">
+              {{ t('percent30') }}
+            </el-radio>
+            <el-radio :value="0.4">
+              {{ t('percent40') }}
+            </el-radio>
+            <el-radio :value="0.5">
+              {{ t('percent50') }}
+            </el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -55,6 +69,12 @@ const { config, position, windowWidthRatio } = storeToRefs(configStore)
   </widget-base-dialog>
 </template>
 
-<style scoped>
-
+<style>
+.title-bar{
+  app-region: drag;
+}
+.actions{
+  app-region: no-drag;
+  cursor: pointer;
+}
 </style>

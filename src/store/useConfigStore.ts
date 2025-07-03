@@ -13,7 +13,7 @@ export const useConfigStore = defineStore('config', () => {
   const position = useStorage<WindowPosition>('window-position', 'right')
   const tipProgress = useStorage('tip-progress-3', 0)
   const pageCount = useStorage<number>('page-count', 1)
-  const alwaysTop = useStorage('always-top', false)
+  const alwaysTop = useStorage('always-top-1', true)
   const windowWidthRatio = useStorage<number>('window-width-percent', 0.3)
   const needShowTip = computed(() => {
     return tipProgress.value < 2

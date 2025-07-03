@@ -9,6 +9,7 @@
   "scripts": {
     "serve": "vite",
     "build": "vite build",
+    "build:offline": "vite build --mode offline",
     "preview": "vite preview",
     "remote": "widget dependencies -t remote",
     "local": "widget dependencies -t local",

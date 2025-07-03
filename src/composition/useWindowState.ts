@@ -2,6 +2,7 @@ import { computed, ref, watch } from 'vue'
 import { BrowserWindowApi } from '@widget-js/core'
 import { TransitionPresets, useStorage, useTransition, watchArray } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import consola from 'consola'
 import { useConfigStore } from '@/store/useConfigStore'
 import type { AiPlatform } from '@/utils/AiUtils'
 
@@ -23,6 +24,7 @@ export function useWindowState() {
   })
 
   async function setup() {
+    consola.info('setup window')
     BrowserWindowApi.setResizable(false)
     let x = screen.availWidth - windowWidth.value
     if (position.value == 'left') {

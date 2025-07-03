@@ -54,7 +54,7 @@ export class AiUtils {
     url: 'https://gemini.google.com/',
   }]
 
-  static readonly aiServices: AiService[] = AiUtils.chinaAiServices.concat(AiUtils.usAiServices)
+  static readonly aiServices: AiService[] = AiUtils.usAiServices.concat(AiUtils.chinaAiServices)
 
   static getUrl(platform: AiPlatform): string {
     return AiUtils.aiServices.find(service => service.value === platform)?.url ?? this.chinaAiServices[0].url

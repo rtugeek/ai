@@ -7,6 +7,9 @@ import type { AiPlatform } from '@/utils/AiUtils'
 import { AiUtils } from '@/utils/AiUtils'
 import 'driver.js/dist/driver.css'
 import { useConfigStore } from '@/store/useConfigStore'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const model = defineModel<AiPlatform>()
 const selectedAiService = computed(() => {
@@ -22,7 +25,7 @@ async function showTip() {
     const driverObj = driver({
       allowClose: false,
       showButtons: ['next'],
-      doneBtnText: '知道了',
+      doneBtnText: t('know'),
       onNextClick: () => {
         tipProgress.value = 2
         driverObj.moveNext()
@@ -33,8 +36,8 @@ async function showTip() {
       steps: [{
         element: '.ai-select',
         popover: {
-          title: '选择您的AI服务',
-          description: '支持切换 DeepSeek、Kimi、豆包 等国内主流AI服务',
+          title: t('selectAiTitle'),
+          description: t('selectAiDesc'),
         },
       }],
     })
@@ -53,21 +56,21 @@ onMounted(async () => {
 </script>
 
 <template>
-  <el-select v-model="model" class="ai-select" placeholder="选择AI平台">
+  <el-select v-model="model" class="ai-select" :placeholder="t('selectAiPlaceholder')">
     <template #label>
       <div class="flex items-center gap-2">
         <img :src="selectedAiService.logo" class="logo" alt="ai.name"> {{ selectedAiService.name }}
       </div>
     </template>
-    <el-option-group label="国内AI">
-      <el-option v-for="ai in AiUtils.chinaAiServices" :key="ai.value" :label="ai.name" :value="ai.value">
+    <el-option-group :label="t('usAi')">
+      <el-option v-for="ai in AiUtils.usAiServices" :key="ai.value" :label="ai.name" :value="ai.value">
         <div class="flex items-center gap-2">
           <img :src="ai.logo" class="logo" alt="ai.name"> {{ ai.name }}
         </div>
       </el-option>
     </el-option-group>
-    <el-option-group label="国外AI（需要科学上网）">
-      <el-option v-for="ai in AiUtils.usAiServices" :key="ai.value" :label="ai.name" :value="ai.value">
+    <el-option-group :label="t('chinaAi')">
+      <el-option v-for="ai in AiUtils.chinaAiServices" :key="ai.value" :label="ai.name" :value="ai.value">
         <div class="flex items-center gap-2">
           <img :src="ai.logo" class="logo" alt="ai.name"> {{ ai.name }}
         </div>
