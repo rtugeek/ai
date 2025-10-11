@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 import { BrowserWindowApi, ShortcutApi, SystemApi, delay } from '@widget-js/core'
-import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3'
+import { useAppBroadcast, useShortcutListener, useWidgetProxyConfig } from '@widget-js/vue3'
 import { nextTick, onMounted, ref, watch } from 'vue'
-import { useDebounceFn } from '@vueuse/core'
 import NProgress from 'nprogress'
-import consola from 'consola'
 import { storeToRefs } from 'pinia'
 import Tip from '@/components/Tip.vue'
 import { useConfigStore } from '@/store/useConfigStore'
@@ -12,32 +10,25 @@ import { useWindowState } from '@/composition/useWindowState'
 import SettingHeader from '@/widgets/ai/component/SettingHeader.vue'
 
 NProgress.start()
+
 const shortcut = ref<string>('')
 const configStore = useConfigStore()
-const { config, platformUrlList, proxyRule } = storeToRefs(configStore)
+const { config, platformUrlList } = storeToRefs(configStore)
 async function updateShortcut() {
   ShortcutApi.unregister(shortcut.value)
   shortcut.value = config.value.shortcut
   await ShortcutApi.register(shortcut.value)
 }
-watch(config, async () => {
-  if (config.value.shortcut != shortcut.value) {
-    updateShortcut()
-  }
-}, { deep: true })
+const { config: proxyConfig, proxyRule, updateProxy, hasProxyRule } = useWidgetProxyConfig()
 
 watch(platformUrlList, () => {
   window.location.reload()
 })
 
-const reloadProxy = useDebounceFn(async () => {
-  await BrowserWindowApi.setProxy({ proxyRules: proxyRule.value })
-  window.location.reload()
-}, 2000)
-
 watch(proxyRule, async () => {
-  consola.info('new proxy', proxyRule.value)
-  reloadProxy()
+  if (hasProxyRule.value) {
+    updateProxy()
+  }
 })
 
 const windowState = useWindowState()

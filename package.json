@@ -20,8 +20,8 @@
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
     "@vueuse/core": "^9.4.0",
-    "@widget-js/core": "^24.1.1-beta.62",
-    "@widget-js/vue3": "^24.1.1-beta.65",
+    "@widget-js/core": "^24.1.1-beta.72",
+    "@widget-js/vue3": "^24.1.1-beta.74",
     "@widget-js/webview-utils": "^1.0.2",
     "consola": "^3.2.3",
     "driver.js": "^1.3.5",
@@ -29,7 +29,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.3.1",
     "vue": "^3.4.27",
-    "vue-i18n": "10.0.5",
+    "vue-i18n": "11.1.10",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {

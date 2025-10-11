@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { WidgetBindShortcutField } from '@widget-js/vue3'
+import { WidgetBindShortcutField, useWidgetProxyConfig } from '@widget-js/vue3'
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
 import { useConfigStore } from '@/store/useConfigStore'
 
 const configStore = useConfigStore()
+const { config: proxyConfig } = useWidgetProxyConfig()
 const { config, position, windowWidthRatio } = storeToRefs(configStore)
 const { t } = useI18n()
 </script>
@@ -16,28 +17,6 @@ const { t } = useI18n()
         <el-form-item :label="t('shortcut')">
           <WidgetBindShortcutField v-model="config.shortcut" />
         </el-form-item>
-        <el-form-item :label="t('protocol')">
-          <el-radio-group v-model="config.protocol">
-            <el-radio label="http">
-              {{ t('http') }}
-            </el-radio>
-            <el-radio label="https">
-              {{ t('https') }}
-            </el-radio>
-            <el-radio label="sock4">
-              {{ t('sock4') }}
-            </el-radio>
-            <el-radio label="sock5">
-              {{ t('sock5') }}
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item :label="t('host')">
-          <el-input v-model="config.host" class="flex-1" :placeholder="`${t('host')} 127.0.0.1`" />
-        </el-form-item>
-        <el-form-item :label="t('port')">
-          <el-input v-model="config.port" style="width: 50px" :placeholder="`${t('port')} 7890`" />
-        </el-form-item>
         <el-form-item :label="t('position')">
           <el-radio-group v-model="position">
             <el-radio value="left">
@@ -48,6 +27,7 @@ const { t } = useI18n()
             </el-radio>
           </el-radio-group>
         </el-form-item>
+        <WidgetProxyField v-model:host="proxyConfig.host" v-model:protocol="proxyConfig.protocol" v-model:port="proxyConfig.port" :label-width="140" />
         <el-form-item :label="t('windowSize')">
           <el-radio-group v-model="windowWidthRatio">
             <el-radio :value="0.2">

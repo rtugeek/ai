@@ -4,9 +4,10 @@ import DeepSeek from '@/assets/deepseek.png'
 import Gemini from '@/assets/google-gemini-icon.png'
 import ChatGpt from '@/assets/chatgpt-icon.png'
 import YuanBao from '@/assets/yuanbao.png'
+import Grok from '@/assets/grok.png'
 import Kimi from '@/assets/kimi.png'
 
-export type AiPlatform = 'deepseek' | 'chatgpt' | 'gemini' | 'kimi' | 'qwen' | 'dou_bao' | 'yuan_bao'
+export type AiPlatform = 'deepseek' | 'chatgpt' | 'grok' | 'gemini' | 'kimi' | 'qwen' | 'dou_bao' | 'yuan_bao'
 export interface AiService {
   name: string
   value: AiPlatform
@@ -47,6 +48,11 @@ export class AiUtils {
     value: 'chatgpt',
     logo: ChatGpt,
     url: 'https://chatgpt.com/',
+  }, {
+    name: 'Grok',
+    value: 'grok',
+    logo: Grok,
+    url: 'https://grok.com/',
   }, {
     name: 'Gemini',
     value: 'gemini',
