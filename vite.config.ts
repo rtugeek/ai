@@ -11,12 +11,10 @@ import UnoCSS from 'unocss/vite'
 
 export default defineConfig((config) => {
   const mode = config.mode
-  let base = '/ai'
-  if (mode == 'offline') {
-    base = './'
-  }
+  const isOffline = mode == 'offline'
+  const base = isOffline ? './' : '/ai'
   return {
-    base: base,
+    base,
     build: {
       target: 'es6',
     },
@@ -29,7 +27,7 @@ export default defineConfig((config) => {
         },
       }),
       UnoCSS(),
-      ViteWidget({ generateFullNamePackage: true }),
+      ViteWidget({ generateFullNamePackage: true, generateZip: isOffline }),
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),

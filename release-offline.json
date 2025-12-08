@@ -1,0 +1,11 @@
+{
+  "fileMap": [
+    {
+      "pattern": "./dist/widget_*.zip",
+      "dest": "/www/wwwroot/widgetjs.cn/ai/widget.zip"
+    }
+  ],
+  "ftpConfig": {
+    "host": ["mine"]
+  }
+}

@@ -30,7 +30,7 @@ export class AiUtils {
     name: '通义千问',
     value: 'qwen',
     logo: Qwen,
-    url: 'https://tongyi.aliyun.com/',
+    url: 'https://www.qianwen.com/',
   }, {
     name: '豆包',
     logo: DouBao,
