@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import WebviewUtils from '@widget-js/webview-utils'
 import consola from 'consola'
-import PromptInput from '@/components/PromptInput.vue'
-import BaseWebview from '@/components/BaseWebview.vue'
+import PromptInput from './PromptInput.vue'
+import BaseWebview from './BaseWebview.vue'
 
 const props = defineProps<{
   url1: string

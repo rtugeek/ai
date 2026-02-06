@@ -4,10 +4,11 @@ import { useAppBroadcast, useShortcutListener, useWidgetProxyConfig } from '@wid
 import { nextTick, onMounted, ref, watch } from 'vue'
 import NProgress from 'nprogress'
 import { storeToRefs } from 'pinia'
-import Tip from '@/components/Tip.vue'
+import Tip from '@/widgets/ai/component/Tip.vue'
 import { useConfigStore } from '@/store/useConfigStore'
 import { useWindowState } from '@/composition/useWindowState'
 import SettingHeader from '@/widgets/ai/component/SettingHeader.vue'
+import BaseWebview from '@/widgets/ai/component/BaseWebview.vue'
 
 NProgress.start()
 

@@ -4,7 +4,7 @@ import type { WebviewTag } from '@widget-js/webview-utils'
 import { useIntervalFn, useStorage, watchDebounced, watchOnce } from '@vueuse/core'
 import NProgress from 'nprogress'
 import { ElMessage } from 'element-plus'
-import AiSelect from '@/components/AiSelect.vue'
+import AiSelect from './AiSelect.vue'
 import type { AiPlatform } from '@/utils/AiUtils'
 import { AiUtils } from '@/utils/AiUtils'
 

@@ -1,9 +1,11 @@
 import AiWidgetRoutes from './ai/AiWidgetRoutes'
 
-// FBI WANING! IMPORT PLACE, DONT DELETE THIS LINE
+import MindMapWidgetRoutes from "./mind-map/MindMapWidgetRoutes";
+//FBI WANING! IMPORT PLACE, DONT DELETE THIS LINE
 
 const WidgetRouter = [
   ...AiWidgetRoutes,
-  // FBI WANING! ROUTE PLACE, DONT DELETE THIS LINE
+  ...MindMapWidgetRoutes,
+    // FBI WANING! ROUTE PLACE, DONT DELETE THIS LINE
 ]
 export default WidgetRouter

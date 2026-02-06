@@ -23,6 +23,39 @@
   "url": "",
   "widgets": [
     {
+      "name": "cn.widgetjs.widgets.ai.assistant.mind_map",
+      "title": {
+        "zh-CN": "思维导图"
+      },
+      "description": {
+        "zh-CN": ""
+      },
+      "keywords": [
+        "recommend"
+      ],
+      "security": false,
+      "permissions": [],
+      "lang": "zh-CN",
+      "width": 2,
+      "height": 2,
+      "maxWidth": 2,
+      "webviewTag": false,
+      "maxHeight": 2,
+      "minWidth": 2,
+      "minHeight": 2,
+      "movable": true,
+      "singleton": false,
+      "resizable": true,
+      "path": "/widget/mind_map",
+      "meta": {},
+      "backgroundThrottling": true,
+      "previewImage": "修改为组件预览图地址",
+      "categories": [],
+      "supportDeployMode": 17,
+      "configPagePath": "/widget/config/mind_map?width=600&height=500&frame=true&transparent=false",
+      "routes": []
+    },
+    {
       "name": "cn.widgetjs.widgets.ai.assistant.chatgpt",
       "title": {
         "zh-CN": "AI助手",

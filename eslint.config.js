@@ -15,7 +15,7 @@ export default antfu({
     'ts/no-use-before-define': 'off',
     'eqeqeq': 'off',
     'style/max-statements-per-line': ['error', {
-      max: 2,
+      max: 1,
     }],
   },
 })
