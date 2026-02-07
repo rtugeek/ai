@@ -19,7 +19,7 @@ title: @{content}
 2.如果我输入的是第二语言，帮我翻译成母语。
 3.请直接回答问题，不要添加任何总结或结束语。`
 
-  static mermaidDiagram = `根据我发给你的内容，帮我生成一个mermaid格式的图表。
+  static mermaidDiagram = `根据我发给你的内容，帮我生成一个mermaid格式的{{chartType}}图表。
  1.不用带有这个语法标识\`\`\`mermaid \`\`\`。
  2.请直接回答问题，不要添加任何总结或结束语。`
 }
