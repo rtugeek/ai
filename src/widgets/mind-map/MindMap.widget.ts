@@ -2,8 +2,8 @@ import { BackgroundWidget, Widget, WidgetKeyword } from '@widget-js/core'
 
 const MindMapWidget = new BackgroundWidget({
   name: 'cn.widgetjs.widgets.ai.assistant.mind_map',
-  title: { 'zh-CN': '思维导图' },
-  description: { 'zh-CN': '' },
+  title: { 'zh-CN': '思维导图', 'en-US': 'Mind Map' },
+  description: { 'zh-CN': '根据关键词生成思维导图', 'en-US': 'Generate a mind map based on keywords' },
   keywords: [WidgetKeyword.RECOMMEND],
   categories: [],
   lang: 'zh-CN',
@@ -15,7 +15,7 @@ const MindMapWidget = new BackgroundWidget({
     transparent: false,
     skipTaskbar: false,
   },
-  previewImage: '修改为组件预览图地址',
+  previewImage: '/preview_mindmap.png',
   path: '/widget/mind_map',
   configPagePath: '/widget/config/chatgpt?frame=true&transparent=false',
 })
