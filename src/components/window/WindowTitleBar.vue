@@ -13,7 +13,7 @@ function close() {
 </script>
 
 <template>
-  <div v-drag-window class="window-title-bar" @dblclick="toggleMaximize">
+  <div class="window-title-bar" @dblclick="toggleMaximize">
     <slot name="title">
       <div class="title">
         <slot name="logo" />
@@ -22,6 +22,9 @@ function close() {
         </div>
       </div>
     </slot>
+    <div class="actions" style="margin-left: auto; display: flex; align-items: center; -webkit-app-region: no-drag;">
+      <slot name="actions" />
+    </div>
     <div class="buttons">
       <div class="button minimize" @click="BrowserWindowApi.minimize()">
         <Minus />
@@ -47,6 +50,7 @@ function close() {
   color: var(--color);
   font-weight: bold;
   z-index: 2;
+  app-region: drag;
   align-items: center;
   border-bottom: var(--surface-border);
   .title{
@@ -56,7 +60,6 @@ function close() {
     align-items: center;
   }
   .buttons{
-    margin-left: auto;
     display: flex;
     gap:8px;
   }
@@ -69,7 +72,7 @@ function close() {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-
+    app-region: no-drag;
     color: white;
     transition: background 0.3s;
     &.minimize{

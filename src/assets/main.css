@@ -1,0 +1,75 @@
+
+:root {
+    --el-color-primary: #3498db;
+    --color-primary: #fff;
+    --background-color: #f8f9fa;
+    --color: #07151f;
+    --surface: #e9ecef;
+    --border-radius: 14px;
+    --surface-border: 1px solid rgba(220, 220, 220, 0.7);
+    --surface-background-color: #f1f3f5;
+    --surface-background: var(--surface-background-color);
+    --section-block-header-height: 1.5rem;
+    --window-title-bar-height:44px;
+    --window-body-height: calc(100vh - var(--window-title-bar-height));
+}
+
+@media (prefers-color-scheme: dark) {
+   :root{
+       --color-primary: #000;
+       --background-color: #0a0b0c;
+       --surface: #111213;
+       --surface-background-color: #111213;
+       --surface-background: var(--surface-background-color);
+       --surface-border: 1px solid rgba(80, 80, 80, 0.7);
+       --color: #ffffff;
+   }
+}
+
+html.dark {
+    --color-primary: #000;
+    --background-color: #0a0b0c;
+    --surface: #111213;
+    --surface-background-color: #111213;
+    --surface-background: var(--surface-background-color);
+    --surface-border: 1px solid rgba(80, 80, 80, 0.7);
+    --color: #ffffff;
+}
+
+body{
+    margin: 0;
+    background-color: var(--background-color);
+    font-family: 'Microsoft YaHei';
+}
+
+* {
+    user-select: text;
+    margin: 0;
+    padding: 0;
+}
+
+.i-icon{
+    line-height: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+    background: rgba(241, 241, 241, 0.2); /* 轨道背景色 */
+    border-radius: 10px; /* 圆角 */
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    background: #888; /* 滑块背景色 */
+    border-radius: 10px; /* 圆角 */
+}
+
+/* 滚动条滑块悬停效果 */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* 悬停时的背景色 */
+}

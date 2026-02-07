@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OneToOne, ZoomIn, ZoomOut } from '@icon-park/vue-next'
+import { Download, OneToOne, ZoomIn, ZoomOut } from '@icon-park/vue-next'
 import { useDebounceFn, useThrottleFn } from '@vueuse/core'
 import { delay } from '@widget-js/core'
 import { Transformer } from 'markmap-lib'
@@ -60,10 +60,42 @@ function fit() {
   mm.fit()
 }
 
+function exportToImage() {
+  const svg = svgRef.value
+  if (!svg)
+    return
+
+  const serializer = new XMLSerializer()
+  const source = serializer.serializeToString(svg)
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  const img = new Image()
+
+  const { width, height } = svg.getBoundingClientRect()
+  const scale = 2
+  canvas.width = width * scale
+  canvas.height = height * scale
+
+  img.onload = () => {
+    if (ctx) {
+      ctx.fillStyle = 'white'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.scale(scale, scale)
+      ctx.drawImage(img, 0, 0)
+      const a = document.createElement('a')
+      a.download = 'mindmap.png'
+      a.href = canvas.toDataURL('image/png')
+      a.click()
+    }
+  }
+  img.src = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(source)))}`
+}
+
 defineExpose({
   zoomIn,
   zoomOut,
   fit,
+  exportToImage,
 })
 </script>
 
@@ -80,6 +112,9 @@ defineExpose({
         </el-button>
         <el-button size="small" @click="fit">
           <OneToOne size="18" />
+        </el-button>
+        <el-button size="small" @click="exportToImage">
+          <Download size="18" />
         </el-button>
       </el-button-group>
     </div>
@@ -100,10 +135,14 @@ defineExpose({
   svg{
     width: 100%;
     height: 100%;
+    text {
+      fill: currentColor;
+    }
   }
 }
 foreignObject{
   cursor: pointer;
+  color: var(--color);
   div{
     user-select: none;
   }
