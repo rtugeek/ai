@@ -15,7 +15,6 @@ import Window from '@/components/window/Window.vue'
 import WindowTitleBar from '@/components/window/WindowTitleBar.vue'
 import { useRouteAiConfig } from '@/composition/useRouteAiConfig'
 import { CommonContext } from '@/data/CommonContext'
-import '@/assets/main.css'
 
 const markdownMapRef = ref<InstanceType<typeof MarkdownMap>>()
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>()

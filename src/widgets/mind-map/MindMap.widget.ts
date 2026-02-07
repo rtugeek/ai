@@ -5,7 +5,7 @@ const MindMapWidget = new BackgroundWidget({
   title: { 'zh-CN': '思维导图', 'en-US': 'Mind Map' },
   description: { 'zh-CN': '根据关键词生成思维导图', 'en-US': 'Generate a mind map based on keywords' },
   keywords: [WidgetKeyword.RECOMMEND],
-  categories: [],
+  categories: ['ai', 'utilities'],
   lang: 'zh-CN',
   browserWindowOptions: {
     width: 800,

@@ -65,7 +65,7 @@ body{
 
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-    background: #888; /* 滑块背景色 */
+    background: #c9c7c7; /* 滑块背景色 */
     border-radius: 10px; /* 圆角 */
 }
 
