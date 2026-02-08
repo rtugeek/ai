@@ -1,6 +1,7 @@
 {
   "name": "cn.widgetjs.widgets.ai.assistant",
-  "version": "0.3.1",
+  "version": "0.4.1",
+  "requiredAppVersion": "0.0.1",
   "author": "Neo Fu",
   "homepage": "https://widgetjs.cn",
   "title": {
@@ -23,12 +24,108 @@
   "url": "",
   "widgets": [
     {
-      "name": "cn.widgetjs.widgets.ai.assistant.mind_map",
+      "name": "cn.widgetjs.widgets.ai.assistant.translate",
       "title": {
-        "zh-CN": "思维导图"
+        "zh-CN": "AI翻译",
+        "en-US": "AI Translation"
       },
       "description": {
-        "zh-CN": ""
+        "zh-CN": "使用AI翻译文本",
+        "en-US": "Translate text using AI"
+      },
+      "keywords": [
+        "recommend"
+      ],
+      "security": false,
+      "permissions": [],
+      "lang": "zh-CN",
+      "width": 1,
+      "height": 1,
+      "maxWidth": 1,
+      "webviewTag": false,
+      "maxHeight": 1,
+      "minWidth": 1,
+      "minHeight": 1,
+      "movable": true,
+      "singleton": false,
+      "resizable": true,
+      "path": "/widget/translate",
+      "meta": {},
+      "backgroundThrottling": false,
+      "previewImage": "/preview_translate.png",
+      "categories": [
+        "ai",
+        "utilities"
+      ],
+      "supportDeployMode": 65536,
+      "configPagePath": "/widget/config/chatgpt?frame=true&transparent=false",
+      "routes": [],
+      "browserWindowOptions": {
+        "width": 800,
+        "height": 600,
+        "frame": true,
+        "center": true,
+        "titleBarStyle": "hidden",
+        "transparent": false,
+        "skipTaskbar": false
+      }
+    },
+    {
+      "name": "cn.widgetjs.widgets.ai.assistant.mermaid",
+      "title": {
+        "zh-CN": "Mermaid图表",
+        "en-US": "Mermaid Chart"
+      },
+      "description": {
+        "zh-CN": "生成流程图、类图、甘特图、时序图等图表",
+        "en-US": "Generate flowcharts, class diagrams, Gantt charts, sequence diagrams, etc."
+      },
+      "keywords": [
+        "recommend"
+      ],
+      "security": false,
+      "permissions": [],
+      "lang": "zh-CN",
+      "width": 1,
+      "height": 1,
+      "maxWidth": 1,
+      "webviewTag": false,
+      "maxHeight": 1,
+      "minWidth": 1,
+      "minHeight": 1,
+      "movable": true,
+      "singleton": false,
+      "resizable": true,
+      "path": "/widget/mermaid",
+      "meta": {},
+      "backgroundThrottling": false,
+      "previewImage": "/preview_mermaid.png",
+      "categories": [
+        "ai",
+        "utilities"
+      ],
+      "supportDeployMode": 65536,
+      "configPagePath": "/widget/config/chatgpt?frame=true&transparent=false",
+      "routes": [],
+      "browserWindowOptions": {
+        "width": 800,
+        "height": 600,
+        "center": true,
+        "frame": true,
+        "titleBarStyle": "hidden",
+        "transparent": false,
+        "skipTaskbar": false
+      }
+    },
+    {
+      "name": "cn.widgetjs.widgets.ai.assistant.mind_map",
+      "title": {
+        "zh-CN": "思维导图",
+        "en-US": "Mind Map"
+      },
+      "description": {
+        "zh-CN": "根据关键词生成思维导图",
+        "en-US": "Generate a mind map based on keywords"
       },
       "keywords": [
         "recommend"
@@ -49,8 +146,11 @@
       "path": "/widget/mind_map",
       "meta": {},
       "backgroundThrottling": false,
-      "previewImage": "修改为组件预览图地址",
-      "categories": [],
+      "previewImage": "/preview_mindmap.png",
+      "categories": [
+        "ai",
+        "utilities"
+      ],
       "supportDeployMode": 65536,
       "configPagePath": "/widget/config/chatgpt?frame=true&transparent=false",
       "routes": [],
@@ -58,6 +158,7 @@
         "width": 800,
         "height": 600,
         "frame": true,
+        "center": true,
         "titleBarStyle": "hidden",
         "transparent": false,
         "skipTaskbar": false

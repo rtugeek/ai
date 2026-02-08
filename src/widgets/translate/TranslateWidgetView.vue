@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Copy } from '@icon-park/vue-next'
-import { useStorage, useTitle, watchDebounced } from '@vueuse/core'
+import { useDark, useStorage, useTitle, watchDebounced } from '@vueuse/core'
 import { useAiChat } from '@widget-js/ai-component'
 import { ElNotification } from 'element-plus'
 import { reactive, watchEffect } from 'vue'
@@ -13,9 +13,11 @@ import Window from '@/components/window/Window.vue'
 import WindowTitleBar from '@/components/window/WindowTitleBar.vue'
 import { useRouteAiConfig } from '@/composition/useRouteAiConfig'
 import { TranslateContext } from '@/data/TranslateContext'
+import ThemeToggle from '@/components/ThemeToggle.vue'
 
-useRouteAiConfig()
+const aiConfig = useRouteAiConfig()
 const route = useRoute()
+const isDark = useDark()
 const firstLang = useStorage('first-lang', 'zh')
 const secondLang = useStorage('second-lang', 'en')
 const context = reactive<TranslateContext>(new TranslateContext({
@@ -49,9 +51,16 @@ function generate() {
       type: 'warning',
       position: 'bottom-right',
     })
+    return
   }
+
+  if (!aiConfig.check()) {
+    return
+  }
+
   const id = context.getMD5()
   aiChat.updateChat({ name: `翻译:${id}`, id: `translate:${id}`, prompt: context.fullFill(Prompt.translate) })
+  aiChat.sendWithStream(context.content, true)
 }
 
 useTitle('翻译')
@@ -64,7 +73,7 @@ watchEffect(() => {
 
 <template>
   <Window>
-    <div class="pl-2">
+    <div class="flex pl-2 items-center justify-between pr-2">
       <el-form ref="formRef" class="mt-2" inline>
         <el-form-item label="母语" prop="knowledge">
           <LanguageSelect v-model="firstLang" />
@@ -78,9 +87,10 @@ watchEffect(() => {
           </el-button>
         </el-form-item>
       </el-form>
+      <ThemeToggle />
     </div>
     <div class="flex flex-col h-full p-2 gap-2">
-      <el-input v-model="context.content" type="textarea" class="flex-1 h-full" style="min-height: 150px" />
+      <el-input v-model="context.content" type="textarea" class="flex-1 h-full" style="min-height: 150px" @keyup.enter="generate" />
       <div class="result">
         <pre>{{ aiChat.latestResponseContent }}</pre>
         <div class="btn-copy" @click="copy">
@@ -91,7 +101,7 @@ watchEffect(() => {
     <template #title>
       <WindowTitleBar title="翻译">
         <template #logo>
-          <EmojiLogo :src="Logo" glow-color="#47b9ff" />
+          <EmojiLogo :src="Logo" :glow-color="isDark ? '#d6cde1' : '#47b9ff'" />
         </template>
       </WindowTitleBar>
     </template>

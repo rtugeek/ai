@@ -16,7 +16,7 @@ import Logo from '@/assets/images/bar_chart.png'
 import { Prompt } from '@/api/Prompt'
 import ThemeToggle from '@/components/ThemeToggle.vue'
 
-useRouteAiConfig()
+const aiConfig = useRouteAiConfig()
 const { t } = useI18n()
 const isDark = useDark()
 const chartTypes = computed(() => [
@@ -50,7 +50,15 @@ const aiChat = useAiChat({ name: `图表:${id}`, id: `diagram:${id}`, prompt: ge
   }
   aiChat.sendWithStream(context.content ?? '', true)
 } })
-const result = ref('')
+const result = ref(`graph TD 
+     A[开始] --> B[接收用户输入] 
+     B --> C{输入是否为空?} 
+     C -- 是 --> D[提示用户输入内容] 
+     D --> B 
+     C -- 否 --> E[处理用户输入] 
+     E --> F[生成mermaid流程图] 
+     F --> G[输出流程图] 
+     G --> H[结束] `)
 function generate() {
   if (!context.content) {
     ElNotification({
@@ -59,6 +67,9 @@ function generate() {
       type: 'warning',
       position: 'bottom-right',
     })
+    return
+  }
+  if (!aiConfig.check()) {
     return
   }
   const id = context.getMD5()
@@ -80,6 +91,9 @@ onMounted(async () => {
   if (aiChat.latestResponseContent.value) {
     result.value = aiChat.latestResponseContent.value
   }
+  else {
+    aiChat.latestResponseContent.value = result.value
+  }
 })
 </script>
 
@@ -88,7 +102,7 @@ onMounted(async () => {
     <div class="flex pl-2 items-center justify-between pr-2">
       <el-form ref="formRef" class="mt-2" inline>
         <el-form-item :label="t('content')">
-          <el-input v-model="context.content" />
+          <el-input v-model="context.content" @keyup.enter="generate" />
         </el-form-item>
         <el-form-item :label="t('chartType')">
           <el-select v-model="chartType" style="width: 150px">

@@ -22,7 +22,7 @@
     "@icon-park/vue-next": "^1.4.2",
     "@vueuse/core": "^9.4.0",
     "@widget-js/ai-component": "^0.0.11",
-    "@widget-js/core": "^24.1.1-beta.84",
+    "@widget-js/core": "^24.1.1-beta.85",
     "@widget-js/vue3": "^24.1.1-beta.74",
     "@widget-js/webview-utils": "^1.0.2",
     "consola": "^3.2.3",
@@ -58,7 +58,7 @@
     "@vue/cli-service": "~5.0.0",
     "@vue/compiler-sfc": "^3.2.45",
     "@vue/eslint-config-typescript": "^9.1.0",
-    "@widget-js/cli": "^24.1.1-beta.71",
+    "@widget-js/cli": "^24.1.1-beta.72",
     "@widget-js/vite-plugin-widget": "^24.1.1-beta.72",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
@@ -76,7 +76,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@widget-js/core": "24.1.1-beta.84"
+      "@widget-js/core": "^24.1.1-beta.85"
     }
   },
   "simple-git-hooks": {

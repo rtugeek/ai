@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { until } from '@vueuse/core'
 import { useAiChat } from '@widget-js/ai-component'
-import { AppApi, BrowserWindowApi, ElectronUtils } from '@widget-js/core'
+import { BrowserWindowApi, ElectronUtils } from '@widget-js/core'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -88,29 +88,12 @@ function generate() {
     })
     return
   }
-  if (!aiConfig.config.apiBaseUrl && !aiConfig.config.apiKey) {
-    ElMessageBox.confirm(
-      '检测到您尚未配置 AI API Key，请先完成配置。',
-      '提示',
-      {
-        confirmButtonText: '去设置',
-        cancelButtonText: '取消',
-        type: 'warning',
-      },
-    )
-      .then(() => {
-        openSetting()
-      })
-      .catch(() => {
-      })
+  if (!aiConfig.check()) {
     return
   }
   const id = context.getMD5()
   aiChat.updateChat({ name: `思维导图`, id: `mind-map:${id}` })
-}
-
-function openSetting() {
-  AppApi.showAppWindow('setting?tab=ai', {})
+  aiChat.sendWithStream(context.fullFill(Prompt.mindMap), true)
 }
 
 onMounted(async () => {
@@ -132,7 +115,7 @@ onMounted(async () => {
     <div class="p-2 flex-row align-center justify-between">
       <el-form ref="formRef" class="mt-2" inline>
         <el-form-item label="内容" prop="knowledge">
-          <el-input v-model="context.content" maxlength="10000" />
+          <el-input v-model="context.content" maxlength="10000" @keyup.enter="generate" />
         </el-form-item>
         <el-form-item label="其他说明">
           <el-input v-model="context.extra" maxlength="500" />

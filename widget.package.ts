@@ -13,6 +13,7 @@ export default new WidgetPackage({
     base: '/ai',
     hostname: 'widgetjs.cn',
   },
+  requiredAppVersion: '0.0.1',
   zipUrl: 'https://widgetjs.cn/ai/widget.zip',
   remoteEntry: 'https://widgetjs.cn/ai',
   remotePackage: 'https://widgetjs.cn/ai/widget.json',

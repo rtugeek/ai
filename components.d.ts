@@ -7,17 +7,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AiPlatformRadioGroup: typeof import('./src/components/AiPlatformRadioGroup.vue')['default']
-    AiSelect: typeof import('./src/components/AiSelect.vue')['default']
-    BaseWebview: typeof import('./src/components/BaseWebview.vue')['default']
     Card: typeof import('./src/components/Card.vue')['default']
     ContextMenu: typeof import('./src/components/ContextMenu.vue')['default']
-    DuelWebview: typeof import('./src/components/DuelWebview.vue')['default']
-    ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
-    ElDialog: typeof import('element-plus/es')['ElDialog']
-    ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
@@ -33,11 +26,9 @@ declare module '@vue/runtime-core' {
     Markdown: typeof import('./src/components/Markdown.vue')['default']
     MarkdownMap: typeof import('./src/components/MarkdownMap.vue')['default']
     PaginationScrollbar: typeof import('./src/components/PaginationScrollbar.vue')['default']
-    PromptInput: typeof import('./src/components/PromptInput.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ThemeToggle: typeof import('./src/components/ThemeToggle.vue')['default']
-    Tip: typeof import('./src/components/Tip.vue')['default']
     Window: typeof import('./src/components/window/Window.vue')['default']
     WindowTitleBar: typeof import('./src/components/window/WindowTitleBar.vue')['default']
   }

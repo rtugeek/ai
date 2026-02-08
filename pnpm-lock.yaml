@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@widget-js/core': 24.1.1-beta.84
+  '@widget-js/core': ^24.1.1-beta.85
 
 dependencies:
   '@icon-park/vue-next':
@@ -18,8 +18,8 @@ dependencies:
     specifier: ^0.0.11
     version: 0.0.11(typescript@5.4.5)(vue@3.5.27)
   '@widget-js/core':
-    specifier: 24.1.1-beta.84
-    version: 24.1.1-beta.84
+    specifier: ^24.1.1-beta.85
+    version: 24.1.1-beta.85
   '@widget-js/vue3':
     specifier: ^24.1.1-beta.74
     version: 24.1.1-beta.74(axios@1.7.2)(nprogress@0.2.0)(vue@3.5.27)
@@ -122,8 +122,8 @@ devDependencies:
     specifier: ^9.1.0
     version: 9.1.0(@typescript-eslint/eslint-plugin@5.62.0)(@typescript-eslint/parser@5.62.0)(eslint-plugin-vue@8.7.1)(eslint@8.57.0)(typescript@5.4.5)
   '@widget-js/cli':
-    specifier: ^24.1.1-beta.71
-    version: 24.1.1-beta.71(nprogress@0.2.0)(vue@3.5.27)
+    specifier: ^24.1.1-beta.72
+    version: 24.1.1-beta.72(nprogress@0.2.0)(vue@3.5.27)
   '@widget-js/vite-plugin-widget':
     specifier: ^24.1.1-beta.72
     version: 24.1.1-beta.72(sass@1.77.4)
@@ -3303,7 +3303,7 @@ packages:
       '@icon-park/vue-next': 1.4.2(vue@3.5.27)
       '@vueuse/core': 12.8.2(typescript@5.4.5)
       '@vueuse/shared': 12.8.2(typescript@5.4.5)
-      '@widget-js/core': 24.1.1-beta.84
+      '@widget-js/core': 24.1.1-beta.85
       consola: 3.4.2
       dexie: 4.3.0
       element-plus: 2.12.0(vue@3.5.27)
@@ -3321,16 +3321,16 @@ packages:
       - zod
     dev: false
 
-  /@widget-js/cli@24.1.1-beta.71(nprogress@0.2.0)(vue@3.5.27):
-    resolution: {integrity: sha512-EkC8PJq1ctM5M23/cAZaC46NgFJ7nfZBM6Lh2q/bAGqkX1Nr5RDov/VJjI+vUHzfcOuJYN8rFGg+5qiAzbo/8A==}
+  /@widget-js/cli@24.1.1-beta.72(nprogress@0.2.0)(vue@3.5.27):
+    resolution: {integrity: sha512-X71i2IXSr1haJuXmjSfZoNzs/vtRMGaCk6DW+I4Ent6VmEO0lvGXlckqTr+1Zx002yyFSbKM/GX7F2JlX/qMHQ==}
     engines: {node: ^12.0.0 || >= 14.0.0}
     hasBin: true
     dependencies:
       '@types/archiver': 5.3.4
       '@vue/cli-shared-utils': 5.0.8
-      '@widget-js/core': 24.1.1-beta.84
+      '@widget-js/core': 24.1.1-beta.85
       '@widget-js/ssh-config': 4.2.1
-      '@widget-js/utils': 24.1.1-beta.71
+      '@widget-js/utils': 24.1.1-beta.72
       '@widget-js/vue3': 24.1.1-beta.74(axios@1.7.2)(nprogress@0.2.0)(vue@3.5.27)
       ali-oss: 6.20.0
       archiver: 5.3.2
@@ -3349,10 +3349,10 @@ packages:
       ora: 6.3.1
       package-json: 10.0.1
       prettier: 3.3.0
-      semver: 7.6.3
+      semver: 7.7.4
       shelljs: 0.8.5
       ssh2-sftp-client: 9.1.0
-      ws: 8.17.0
+      ws: 8.18.3
     transitivePeerDependencies:
       - '@vue/composition-api'
       - async-validator
@@ -3373,8 +3373,8 @@ packages:
       - vue
     dev: true
 
-  /@widget-js/core@24.1.1-beta.84:
-    resolution: {integrity: sha512-8IHIxtmbJ8N576TWil+92x0KmXElY6hkYSJ0YcioOVX5VLV2F9livR732S9GxuN47JkfjoJ4PcNQ+bQQ2UTzmw==}
+  /@widget-js/core@24.1.1-beta.85:
+    resolution: {integrity: sha512-36yYeX0b3t7JchpYlmPRsHedcVGRFCkigbwUaxz3y1fKDjbwO4WY5V5vIMaFbcFrAlE7JtsWElp6V4B2+BzqoQ==}
     dependencies:
       '@supabase/supabase-js': 2.86.2
       '@types/css-tree': 2.3.8
@@ -3390,22 +3390,10 @@ packages:
     resolution: {integrity: sha512-8CB134IyK1BwHMEx4L7yXKRtUgst1iOEVkNJdJKEeQiMxjbHVjeArPetCtV1XnoYA1uuUc3ND2dNvKRPBc4fMw==}
     dev: true
 
-  /@widget-js/utils@24.1.1-beta.71:
-    resolution: {integrity: sha512-5v/nOZN3h/haLDdEAJ9WGQ8cFH0YQg1WoZaYhz2qio9C2y3UzrvmbqiGLn5Gki8xICPXdt1BSeq2fKHIIxKINg==}
-    dependencies:
-      '@widget-js/core': 24.1.1-beta.84
-      consola: 2.15.3
-      glob: 10.4.1
-      typescript: 5.4.5
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-    dev: true
-
   /@widget-js/utils@24.1.1-beta.72:
     resolution: {integrity: sha512-tY+i5iFLiLi2+FO2X5WgGqELbpuAeG3a1dqyJQfY4kf2uc+jDjNOTBli8llxGbx8IEN7R1O0O/tQLF4XJJcYrw==}
     dependencies:
-      '@widget-js/core': 24.1.1-beta.84
+      '@widget-js/core': 24.1.1-beta.85
       consola: 2.15.3
       glob: 10.4.1
       typescript: 5.4.5
@@ -3449,7 +3437,7 @@ packages:
       '@vueuse/core': 9.13.0(vue@3.5.27)
       '@vueuse/integrations': 9.13.0(axios@1.7.2)(change-case@5.4.4)(nprogress@0.2.0)(vue@3.5.27)
       '@vueuse/shared': 10.10.0(vue@3.5.27)
-      '@widget-js/core': 24.1.1-beta.84
+      '@widget-js/core': 24.1.1-beta.85
       change-case: 5.4.4
       consola: 3.2.3
       element-plus: 2.12.0(vue@3.5.27)
@@ -3651,7 +3639,7 @@ packages:
       bowser: 1.9.4
       copy-to: 2.0.1
       dateformat: 2.2.0
-      debug: 4.3.5
+      debug: 4.4.3
       destroy: 1.2.0
       end-or-error: 1.0.1
       get-ready: 1.0.0
@@ -3876,7 +3864,7 @@ packages:
     resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
     dependencies:
       follow-redirects: 1.15.6(debug@4.3.5)
-      form-data: 4.0.0
+      form-data: 4.0.5
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -5825,7 +5813,6 @@ packages:
       get-intrinsic: 1.3.0
       has-tostringtag: 1.0.2
       hasown: 2.0.2
-    dev: false
 
   /esbuild@0.25.12:
     resolution: {integrity: sha512-bbPBYYrtZbkt6Os6FiTLCTFxvq4tt3JKall1vRwshA3fdVztsLAatFaZobhkBC8/BrPetoa0oksYoKXoG4ryJg==}
@@ -6771,14 +6758,6 @@ packages:
     resolution: {integrity: sha512-qfqtYan3rxrnCk1VYaA4H+Ms9xdpPqvLZa6xmMgFvhO32x7/3J/ExcTd6qpxM0vH2GdMI+poehyBZvqfMTto8A==}
     dev: false
 
-  /form-data@4.0.0:
-    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-
   /form-data@4.0.5:
     resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==}
     engines: {node: '>= 6'}
@@ -6788,7 +6767,6 @@ packages:
       es-set-tostringtag: 2.1.0
       hasown: 2.0.2
       mime-types: 2.1.35
-    dev: false
 
   /formdata-node@4.4.1:
     resolution: {integrity: sha512-0iirZp3uVDjVGt9p49aTaqjk84TrglENEDuqfdlZQ1roC9CWlPk6Avf8EEnZNcAqPonwkG35x4n3ww/1THYAeQ==}
@@ -7062,7 +7040,6 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       has-symbols: 1.1.0
-    dev: false
 
   /hash-sum@1.0.2:
     resolution: {integrity: sha512-fUs4B4L+mlt8/XAtSOGMUO1TXmAelItBPtJG7CyHJfYTdDjwisntGO2JQz7oUsatOY9o68+57eziUVNw/mRHmA==}
@@ -8885,7 +8862,7 @@ packages:
       ky: 1.7.4
       registry-auth-token: 5.0.2
       registry-url: 6.0.1
-      semver: 7.6.3
+      semver: 7.7.4
     dev: true
 
   /package-manager-detector@1.6.0:
@@ -12038,19 +12015,6 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: true
-
-  /ws@8.17.0:
-    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true

@@ -65,21 +65,40 @@ function exportToImage() {
   if (!svg)
     return
 
+  const g = svg.querySelector('g')
+  if (!g)
+    return
+
+  const { x, y, width, height } = g.getBBox()
+  const padding = 20
+
+  const clone = svg.cloneNode(true) as SVGElement
+  const cloneG = clone.querySelector('g')
+  if (cloneG)
+    cloneG.removeAttribute('transform')
+
+  clone.setAttribute('viewBox', `${x - padding} ${y - padding} ${width + padding * 2} ${height + padding * 2}`)
+  clone.setAttribute('width', `${width + padding * 2}px`)
+  clone.setAttribute('height', `${height + padding * 2}px`)
+
+  // Handle styles
+  const computedStyle = window.getComputedStyle(svg)
+  clone.style.color = computedStyle.color
+  clone.style.fontFamily = computedStyle.fontFamily
+  clone.style.setProperty('--color', computedStyle.color)
+
   const serializer = new XMLSerializer()
-  const source = serializer.serializeToString(svg)
+  const source = serializer.serializeToString(clone)
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
   const img = new Image()
 
-  const { width, height } = svg.getBoundingClientRect()
   const scale = 2
-  canvas.width = width * scale
-  canvas.height = height * scale
+  canvas.width = (width + padding * 2) * scale
+  canvas.height = (height + padding * 2) * scale
 
   img.onload = () => {
     if (ctx) {
-      ctx.fillStyle = 'white'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.scale(scale, scale)
       ctx.drawImage(img, 0, 0)
       const a = document.createElement('a')

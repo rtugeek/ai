@@ -11,6 +11,7 @@ const MindMapWidget = new BackgroundWidget({
     width: 800,
     height: 600,
     frame: true,
+    center: true,
     titleBarStyle: 'hidden',
     transparent: false,
     skipTaskbar: false,
