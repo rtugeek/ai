@@ -16,6 +16,12 @@ const MindMapWidget = new BackgroundWidget({
     transparent: false,
     skipTaskbar: false,
   },
+  socialLinks: [
+    {
+      name: 'github',
+      link: 'https://github.com/rtugeek/ai',
+    },
+  ],
   previewImage: '/preview_mindmap.png',
   path: '/widget/mind_map',
   configPagePath: '/widget/config/chatgpt?frame=true&transparent=false',

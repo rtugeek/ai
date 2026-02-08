@@ -17,9 +17,26 @@
   <a href="https://discord.gg/vwSAaRR8cT"><img src="https://img.shields.io/badge/-Discord-5865F2?logo=discord&logoColor=white" alt="discord"></a>
 </p>
 
-### 截图
+### 功能截图
 
-![截图](./screenshot.png)
+#### 一键呼出DeepSeek、Kimi、豆包、Grok等AI服务
+
+![AI对话](./screenshot/ai.png)
+
+#### 思维导图生成
+支持将 AI 回复内容一键转换为思维导图 (Markmap)，助力思路整理。
+
+![思维导图](./screenshot/mindmap.png)
+
+#### Mermaid 图表渲染
+支持直接渲染 Mermaid 流程图、时序图、甘特图等多种图表。
+
+![Mermaid图表](./screenshot/mermaid.png)
+
+#### 翻译与预览
+支持快捷翻译及结果即时预览。
+
+![翻译预览](./screenshot/preview_translate.png)
 
 ### 说明
 

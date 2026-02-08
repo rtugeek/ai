@@ -16,6 +16,12 @@ const MermaidWidget = new BackgroundWidget({
     transparent: false,
     skipTaskbar: false,
   },
+  socialLinks: [
+    {
+      name: 'github',
+      link: 'https://github.com/rtugeek/ai',
+    },
+  ],
   previewImage: '/preview_mermaid.png',
   path: '/widget/mermaid',
   configPagePath: '/widget/config/chatgpt?frame=true&transparent=false',
